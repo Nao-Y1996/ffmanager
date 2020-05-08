@@ -16,7 +16,11 @@
 			<td>未実装</td>
 			<td>未実装</td>
 			<td><%=link_to ' プロフィール', user_path(user.id) %></br></td>
-			<td>未実装</td>
+			<td>
+				<% if user.is_admin==true %>代表<%end%>
+				<% if user.is_genre_leader==true %>部門長<%end%>
+
+			</td>
 		</tr>
 		<%end%>
 	</tbody>

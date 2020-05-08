@@ -1,3 +1,35 @@
-<h1>プロフィール画面</h1>
+<h1>プロフィール</h1>
 
-名前：　<%= @user.name %></br>
+
+<table class="table ">
+	<tbody>
+		<tr>
+			<td><%= @user.name %>　　<%= @user.term %>期</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>1ジャン</td>
+			<td>未実装</td>
+		</tr>
+		<tr>
+			<td>2ジャン</td>
+			<td>未実装</td>
+		</tr>
+		<tr>
+			<td>その他</td>
+			<td>
+				<%if @user.is_admin==true%>代表　<%end%>
+				<%if @user.is_genre_leader==true%>部門長　<%end%>
+				<%if current_user.is_admin==true && @user.is_admin==true%>
+					<%=  link_to '代表権限を削除', {controller: "users", action: "change_is_admin", user_id: @user.id}, method: :patch %>
+				<%end%>
+				<%if current_user.is_admin==true && @user.is_admin==false%>
+					<%=  link_to '代表権限を付与', user_change_is_admin_path(user_id: @user.id), method: :patch %>
+				<%end%>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<button class="btn btn-default btn-block">
+	<%=link_to '', edit_user_path(@user.id), class: "glyphicon glyphicon-wrench text-muted "%>
+</button>

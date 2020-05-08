@@ -18,8 +18,9 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
-            <li><%=link_to ' Home', user_path(current_user.id), class: "glyphicon glyphicon-home" %></li>
+            <li><%=link_to ' '+current_user.name, user_path(current_user.id), class: "glyphicon glyphicon-home" %></li>
             <li><%=link_to ' 部員一覧', users_path,class: "glyphicon glyphicon-user" %></li>
+            <li><%=link_to ' ジャンル一覧', genres_path,class: "glyphicon glyphicon-user" %></li>
             <li><%=link_to ' ログアウト', destroy_user_session_path, method: :delete,class: "glyphicon glyphicon-log-out" %></li>
           <% else %>
             <li><%=link_to ' Home', '/', class: "glyphicon glyphicon-home"%></li>
