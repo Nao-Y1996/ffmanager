@@ -1,0 +1,2 @@
+class UserGenreInfo < ApplicationRecord
+end
