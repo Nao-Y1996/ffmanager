@@ -10,17 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_07_194707) do
-
-  create_table "genre_users", force: :cascade do |t|
-    t.integer "genre_id"
-    t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["genre_id", "user_id"], name: "index_genre_users_on_genre_id_and_user_id", unique: true
-    t.index ["genre_id"], name: "index_genre_users_on_genre_id"
-    t.index ["user_id"], name: "index_genre_users_on_user_id"
-  end
+ActiveRecord::Schema.define(version: 2020_05_07_194628) do
 
   create_table "genres", force: :cascade do |t|
     t.string "name", null: false
