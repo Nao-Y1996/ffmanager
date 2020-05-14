@@ -1,3 +1,5 @@
+
+
 <h1>部員一覧</h1>
 <table class="table">
 	<thead>
@@ -5,20 +7,44 @@
 			<th>名前</th>
 			<th>1ジャン</th>
 			<th>2ジャン</th>
-			<th> </th>
 			<th>その他</th>
 		</tr>
 	</thead>
 	<tbody>
 		<% @users.each do |user| %>
+			<!--===========ユーザーの1,2ジャン及びステータスを特定する処理==============-->
+			<% genre1_info = user.user_genre_infos.find_by(priority: 1) %>
+			<% if genre1_info!=nil && genre1_info.is_valid==true %>
+			  <% genre1_name = genre1_info.genre.name %>
+			<% elsif genre1_info!=nil && genre1_info.is_valid==false%>
+			  <% genre1_name = genre1_info.genre.name+"申請中" %>
+			<% elsif genre1_info==nil %>
+			  <% genre1_name = "未登録" %>
+			<%end%>
+
+			<% genre2_info = user.user_genre_infos.find_by(priority: 2) %>
+			<% if genre2_info!=nil && genre2_info.is_valid==true %>
+			  <% genre2_name = genre2_info.genre.name %>
+			<% elsif genre2_info!=nil && genre2_info.is_valid==false%>
+			  <% genre2_name = genre2_info.genre.name+"申請中" %>
+			<% elsif genre2_info==nil %>
+			  <% genre2_name = "未登録" %>
+			<%end%>
+			<!--===============================================================-->
+			<!--=============ユーザーが部門長であるか否か============================-->
+			<%if user.user_genre_infos.find_by(is_genre_leader: true) != nil%>
+			  <% user_is_genre_leader = true %>
+			  <%else %>
+			  <% user_is_genre_leader = false %>
+			<%end%>
+			<!--===============================================================-->
 		<tr>
-			<td><%= user.name %></td>
-			<td>未実装</td>
-			<td>未実装</td>
-			<td><%=link_to ' プロフィール', user_path(user.id) %></br></td>
+			<td><%=link_to user.name, user_path(user.id) %></td>
+			<td><%= genre1_name %></td>
+			<td><%= genre2_name %></td>
 			<td>
 				<% if user.is_admin==true %>代表<%end%>
-				<% if user.is_genre_leader==true %>部門長<%end%>
+				<% if user_is_genre_leader==true %>部門長<%end%>
 
 			</td>
 		</tr>

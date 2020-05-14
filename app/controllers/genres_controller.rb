@@ -1,10 +1,15 @@
 class GenresController < ApplicationController
+  before_action :authenticate_user!
   def index
     @genres = Genre.all
   end
 
   def show
     @genre = Genre.find(params[:id])
+    @genre_users_info = UserGenreInfo.where(genre_id: @genre.id, is_valid: true)
+    @request_users_info = UserGenreInfo.where(genre_id: @genre.id, is_valid: false)
+    @new_user_genre_info = UserGenreInfo.new
+    #binding.pry
   end
 
   def edit

@@ -1,3 +1,51 @@
-<h1>Genres#show</h1>
+<h1><%= @genre.name %></h1>
+<%if current_user.user_genre_infos.find_by(is_genre_leader: true) != nil%>
+  <% current_user_is_genre_leader = true %>
+  <%else %>
+  <% current_user_is_genre_leader = false %>
+<%end%>
 
-<%= @genre.name %>のページです
+<!--以下の実装ではURLにパラメータが載ってしまうので改良の余地あり-->
+<%=link_to '1ジャン登録申請', user_genre_infos_path(genre_id: @genre.id, priority: 1), method: :post , class: "btn btn-primary"%>
+<%=link_to '2ジャン登録申請', user_genre_infos_path(genre_id: @genre.id, priority: 2), method: :post , class: "btn btn-primary"%>
+
+
+
+<% if flash[:join_error] %>
+  <div class="flash">
+    <%= flash[:join_error] %>
+  </div>
+<% end %>
+<% if flash[:notice] %>
+  <div class="flash">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+
+<h2>メンバー</h2>
+</br>
+<%if @genre_users_info!=nil %>
+	<% @genre_users_info.each do |genre_user_info| %>
+		<%= genre_user_info.user.name%></br>
+	<%end%>
+<%end%>
+</br>
+
+<h2>申請中</h2>
+<%if @request_users_info!=nil %>
+	<% @request_users_info.each do |request_user_info| %>
+		<%= request_user_info.user.name%>
+		<!--部門長であることの確認処理-->
+		<% genre1 = current_user.user_genre_infos.where(priority: 1) %>
+		<% if current_user_is_genre_leader==true && genre1[0]!=nil && @genre.id == genre1[0].genre_id %>
+			<%=button_to '承認', user_genre_info_path(info_id: request_user_info.id, genre_id: @genre.id),
+													  method: :patch, class: "btn btn-primary" %>
+		<% elsif current_user.is_admin==true %>
+			<%=button_to '承認', user_genre_info_path(info_id: request_user_info.id, genre_id: @genre.id),
+													  method: :patch, class: "btn btn-success" %>
+		<%end%>
+		<!--=====================-->
+	<%end%>
+<%end%>
+

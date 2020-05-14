@@ -15,11 +15,7 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
-	def is_genre_leader?
-		if current_user.is_genre_leader != true
-			redirect_to users_path
-		end
-	end
+
 
 
     private

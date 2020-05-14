@@ -1,5 +1,53 @@
-<h1>プロフィール</h1>
+<!--===========ユーザーの1,2ジャン及びステータスを特定する処理==============-->
+<% genre1_info = @user.user_genre_infos.find_by(priority: 1) %>
+<% if genre1_info!=nil && genre1_info.is_valid==true %>
+  <% genre1_name = genre1_info.genre.name %>
+<% elsif genre1_info!=nil && genre1_info.is_valid==false%>
+  <% genre1_name = genre1_info.genre.name+"申請中" %>
+<% elsif genre1_info==nil %>
+  <% genre1_name = "未登録" %>
+<%end%>
 
+<% genre2_info = @user.user_genre_infos.find_by(priority: 2) %>
+<% if genre2_info!=nil && genre2_info.is_valid==true %>
+  <% genre2_name = genre2_info.genre.name %>
+<% elsif genre2_info!=nil && genre2_info.is_valid==false%>
+  <% genre2_name = genre2_info.genre.name+"申請中" %>
+<% elsif genre2_info==nil %>
+  <% genre2_name = "未登録" %>
+<%end%>
+<!--===============================================================-->
+<!--============ユーザーが部門長かどうか判定する処理======================-->
+<%if @user.user_genre_infos.find_by(is_genre_leader: true) != nil%>
+  <% user_is_genre_leader = true %>
+  <%else %>
+  <% user_is_genre_leader = false %>
+<%end%>
+<!--===============================================================-->
+
+<h1><%= @user.name %>　　<%= @user.term %>th</h1>
+
+<%if current_user.is_admin==true && @user.is_admin==true%>
+	<%=  link_to '代表権限を削除', user_change_is_admin_path(user_id: @user.id), method: :patch, class: "btn btn-success"%>
+<%end%>
+<%if current_user.is_admin==true && @user.is_admin==false%>
+	<%=  link_to '代表権限を付与', user_change_is_admin_path(user_id: @user.id), method: :patch, class: "btn btn-success" %>
+<%end%>
+<%if current_user.is_admin==true && user_is_genre_leader==true%>
+	<%=  link_to '部門長権限を削除', {controller: "user_genre_infos",
+								   action: "change_is_genre_leader", user_id: @user.id}, method: :patch, class: "btn btn-success" %>
+<%end%>
+<%if current_user.is_admin==true && user_is_genre_leader==false%>
+	<%=  link_to '部門長権限を付与', {controller: "user_genre_infos",
+								   action: "change_is_genre_leader", user_id: @user.id}, method: :patch, class: "btn btn-success" %>
+<%end%></br>
+
+<% if flash[:notice] %>
+  <div class="flash">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+</br>
 
 <table class="table ">
 	<tbody>
@@ -9,23 +57,18 @@
 		</tr>
 		<tr>
 			<td>1ジャン</td>
-			<td>未実装</td>
+			<td><%= genre1_name %></td>
 		</tr>
 		<tr>
 			<td>2ジャン</td>
-			<td>未実装</td>
+			<td><%= genre2_name %></td>
 		</tr>
 		<tr>
 			<td>その他</td>
 			<td>
 				<%if @user.is_admin==true%>代表　<%end%>
-				<%if @user.is_genre_leader==true%>部門長　<%end%>
-				<%if current_user.is_admin==true && @user.is_admin==true%>
-					<%=  link_to '代表権限を削除', {controller: "users", action: "change_is_admin", user_id: @user.id}, method: :patch %>
-				<%end%>
-				<%if current_user.is_admin==true && @user.is_admin==false%>
-					<%=  link_to '代表権限を付与', user_change_is_admin_path(user_id: @user.id), method: :patch %>
-				<%end%>
+				<%if user_is_genre_leader == true%>部門長　<%end%>
+
 			</td>
 		</tr>
 	</tbody>
