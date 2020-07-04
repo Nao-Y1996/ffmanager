@@ -10,6 +10,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.integer :term, null: false
       t.string :name, null: false
       t.string :name_kana, null: false
+      t.boolean :is_active, default: true
       t.boolean :is_admin, default: false
 
       ## Recoverable

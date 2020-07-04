@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2020_05_12_083031) do
     t.integer "term", null: false
     t.string "name", null: false
     t.string "name_kana", null: false
+    t.boolean "is_active", default: true
     t.boolean "is_admin", default: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
