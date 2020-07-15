@@ -1,10 +1,7 @@
-<h1>Genres#index</h1>
 
-<div class="row">
-	<div class="col-lg-">
-<% @genres.each do |genre| %>
-	<div class="col-lg-4">
-	  <h3><%= link_to genre.name, genre_path(genre)%></h3>
-	</div>
-<%end%>
+<div class="genre-container">
+	<% @genres.each do |genre| %>
+		  <%=link_to genre.name, genre_path(genre) ,class: "genre-box",:style=>"color:white;"  %>
+
+	<%end%>
 </div>

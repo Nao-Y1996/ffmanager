@@ -1,77 +1,12 @@
-<!--===========ユーザーの1,2ジャン及びステータスを特定する処理==============-->
-<% genre1_name = @user.get_genre1_name(@user) %>
-<% genre2_name = @user.get_genre2_name(@user) %>
-<!--===============================================================-->
-<!--============ユーザーが部門長かどうか判定する処理======================-->
-<%if @user.user_genre_infos.find_by(is_genre_leader: true) != nil%>
-  <% user_is_genre_leader = true %>
-  <%else %>
-  <% user_is_genre_leader = false %>
-<%end%>
-<!--===============================================================-->
+<div class="container">
+	<div class='row'>
+		<div class='col-lg-4'>
+			<%= render 'users/user_info', user: @user %>
+		</div>
+		<div class="col-lg-8">
+			<div class='row mt-5'>
 
-<h1><%= @user.term %>th　<%= @user.name %></h1>
-
-
-
-<% if flash[:notice] %>
-  <div class="flash">
-    <%= flash[:notice] %>
-  </div>
-<% end %>
-</br>
-
-<table class="table ">
-	<tbody>
-		<tr>
-			<td><%= @user.term %>th</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>1ジャン</td>
-			<td><%= genre1_name %>
-				<% if genre1_name.include?("申請中") && @user==current_user %>
-				<% genre1_info  = @user.get_user_genre1_info(@user) %>
-				<%= link_to '申請取り消し',{controller: "user_genre_infos", action: "destroy_request", info_id: genre1_info.id}, method: :patch, class: "btn btn-danger" %>
-				<% end %>
-			</td>
-		</tr>
-		<tr>
-			<td>2ジャン</td>
-			<td><%= genre2_name %>
-				<% if genre2_name.include?("申請中") && @user==current_user %>
-				<% genre2_info  = @user.get_user_genre2_info(@user) %>
-				<%= link_to '申請取り消し',{controller: "user_genre_infos", action: "destroy_request", info_id: genre2_info.id}, method: :patch,class: "btn btn-danger" %>
-				<% end %>
-			</td>
-		</tr>
-		<tr>
-			<td>その他</td>
-			<td>
-				<%if @user.is_admin==true%>代表 <%end%>
-				<%if user_is_genre_leader == true%>部門長 <%end%>
-
-			</td>
-		</tr>
-	</tbody>
-</table>
-<button class="btn btn-default btn-block">
-	<%=link_to '', edit_user_path(@user.id), class: "glyphicon glyphicon-wrench text-muted "%>
-</button>
-
-<%=link_to 'ジャンル申請', new_user_genre_info_path, class: "btn btn-primary"%>
-
-<%if current_user.is_admin==true && @user.is_admin==true%>
-	<%=  link_to '- 代表', user_change_is_admin_path(user_id: @user.id), method: :patch, class: "btn btn-danger"%>
-<%end%>
-<%if current_user.is_admin==true && @user.is_admin==false%>
-	<%=  link_to '+ 代表', user_change_is_admin_path(user_id: @user.id), method: :patch, class: "btn btn-success" %>
-<%end%>
-<%if current_user.is_admin==true && user_is_genre_leader==true%>
-	<%=  link_to '- 部門長', {controller: "user_genre_infos",
-								   action: "destroy_genre_leader", user_id: @user.id}, method: :patch, class: "btn btn-danger" %>
-<%end%>
-<%if current_user.is_admin==true && user_is_genre_leader==false%>
-	<%=  link_to '+ 部門長', {controller: "user_genre_infos",
-								   action: "add_genre_leader", user_id: @user.id}, method: :patch, class: "btn btn-success" %>
-<%end%></br>
+		    </div>
+		</div>
+	</div>
+</div>

@@ -11,21 +11,30 @@ class UserGenreInfosController < ApplicationController
 		user_info = current_user.user_genre_infos#どのジャンルにも登録されてない時→nilにならずに[]が返る
 		genre1_info = user_info.where(priority: 1)[0]#見つからない時はnil
 		genre2_info = user_info.where(priority: 2)[0]
-		@new_info = UserGenreInfo.new(params_int(params[:user_genre_info]))
+		@user_genre_info = UserGenreInfo.new(params_int(params[:user_genre_info]))
 		#@new_info.user_id = current_user.id
 		#binding.pry
-		if @new_info.save
+		if @user_genre_info.save
 			redirect_to user_path(current_user)
 		#1ジャン登録済で1ジャン申請してきた時
-	    elsif genre1_info!=nil && genre1_info.is_valid==true && @new_info.is_valid==false && @new_info.priority==1
-	      flash[:join_request_error] = '1ジャンが登録済です。新規で登録申請するには登録解除申請をしてください'
+	    elsif genre1_info!=nil && genre1_info.is_valid==true && @user_genre_info.is_valid==false && @user_genre_info.priority==1
+	      flash[:join_request_error] = '1ジャンは登録済です。新規で登録するには1ジャンの登録を解除してください'
 	      redirect_to new_user_genre_info_path
 	    #2ジャン登録済で2ジャン申請してきた時
-	    elsif genre2_info!=nil && genre2_info.is_valid==true && @new_info.is_valid==false && @new_info.priority==2
-	      flash[:join_request_error] = '2ジャンが登録済です。新規で登録申請するには登録解除申請をしてください'
+	    elsif genre2_info!=nil && genre2_info.is_valid==true && @user_genre_info.is_valid==false && @user_genre_info.priority==2
+	      flash[:join_request_error] = '2ジャンは登録済です。新規で登録するには2ジャンの登録を解除してください'
+	      redirect_to new_user_genre_info_path
+	    #1ジャン申請済で1ジャン申請してきた時
+	    elsif genre1_info!=nil && genre1_info.is_valid==false && @user_genre_info.is_valid==false && @user_genre_info.priority==1
+	      flash[:join_request_error] = '1ジャンは申請済です。新規で申請するには1ジャンの申請を解除してください'
+	      redirect_to new_user_genre_info_path
+	    #2ジャン申請済で2ジャン申請してきた時
+	    elsif genre2_info!=nil && genre2_info.is_valid==false && @user_genre_info.is_valid==false && @user_genre_info.priority==2
+	      flash[:join_request_error] = '2ジャンは申請済です。新規で申請するには2ジャンの申請を解除してください'
 	      redirect_to new_user_genre_info_path
 	    else
-	      redirect_to user_path(current_user)
+	      flash[:join_request_error] = '項目を選択してください'
+	      render :new
 		end
 	end
 
@@ -90,7 +99,7 @@ class UserGenreInfosController < ApplicationController
 					redirect_to user_path(params[:user_id])
 				end
 			elsif genre_leader!=nil#部門長がいる時
-				flash[:add_genre_leader_error]='対象のジャンルにはすでに部門長が登録されています'
+				flash[:add_genre_leader_error]='部門長が登録済みです'
 				redirect_to user_path(params[:user_id])
 			end
 		end

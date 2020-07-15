@@ -9,6 +9,8 @@ class UsersController < ApplicationController
 
   def show
   	@user = User.find(params[:id])
+    @genre1_name = @user.genre1_name
+    @genre2_name = @user.genre2_name
 
   end
 

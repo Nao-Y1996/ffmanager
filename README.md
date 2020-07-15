@@ -22,3 +22,5 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+メンバー表示を１ジャン、２ジャンで分ける
+学年順に並べる

@@ -12,18 +12,18 @@ class User < ApplicationRecord
            dependent: :destroy
 
 
-  def get_user_genre1_info(resource)
-    return resource.user_genre_infos.find_by(priority: 1)
+  def get_genre1_info
+    return self.user_genre_infos.find_by(priority: 1)
   end
 
-  def get_user_genre2_info(resource)
-    return resource.user_genre_infos.find_by(priority: 2)
+  def get_genre2_info
+    return self.user_genre_infos.find_by(priority: 2)
   end
 
 
 
-  def get_genre1_name(resource)
-    genre1_info = resource.get_user_genre1_info(resource)
+  def genre1_name
+    genre1_info = get_genre1_info
     if genre1_info!=nil && genre1_info.is_valid==true
       genre1_name = genre1_info.genre.name
     elsif genre1_info!=nil && genre1_info.is_valid==false
@@ -33,8 +33,8 @@ class User < ApplicationRecord
     end
   end
 
-  def get_genre2_name(resource)
-    genre2_info = resource.get_user_genre2_info(resource)
+  def genre2_name
+    genre2_info = get_genre2_info
     if genre2_info!=nil && genre2_info.is_valid==true
       genre2_name = genre2_info.genre.name
     elsif genre2_info!=nil && genre2_info.is_valid==false
@@ -44,4 +44,11 @@ class User < ApplicationRecord
     end
   end
 
+  def is_genre_leader?
+    if self.user_genre_infos.find_by(is_genre_leader: true) != nil
+      user_is_genre_leader = true
+    else
+      user_is_genre_leader = false
+    end
+  end
 end
