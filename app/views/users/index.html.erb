@@ -10,8 +10,7 @@
 					<tr>
 						<th>代</th>
 						<th>名前</th>
-						<th>1ジャン</th>
-						<th>2ジャン</th>
+						<th>ジャンル</th>
 						<th>その他</th>
 					</tr>
 				</thead>
@@ -19,12 +18,11 @@
 					<% @users.each do |user| %>
 						<tr>
 							<td><%= user.term %></td>
-							<td><%=link_to user.name, user_path(user.id) %></td>
-							<td><%= user.genre1_name %></td>
-							<td><%= user.genre2_name %></td>
+							<td><%=link_to user.name, user_path(user.id),class: "user_name" %></td>
+							<td>1:<%= user.genre1_name %>,</br>2:<%= user.genre2_name %></td>
 							<td>
-								<% if user.is_admin == true %>代表<%end%>
-								<% if user.is_genre_leader? == true %>部門長<%end%>
+								<% if user.is_admin %>代表<%end%>
+								<% if user.is_genre_leader? %>部門長<%end%>
 							</td>
 						</tr>
 					<%end%>

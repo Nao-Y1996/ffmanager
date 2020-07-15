@@ -20,7 +20,17 @@ class User < ApplicationRecord
     return self.user_genre_infos.find_by(priority: 2)
   end
 
-
+  def belongs_to_genre?(genre)
+    genre1_info = get_genre1_info
+    genre2_info = get_genre2_info
+    if genre1_info != nil && genre1_info.genre_id == genre.id
+        return true
+    elsif genre2_info != nil && genre2_info.genre_id == genre.id
+        return true
+    else
+      return false
+    end
+  end
 
   def genre1_name
     genre1_info = get_genre1_info

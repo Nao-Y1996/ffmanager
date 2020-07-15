@@ -17,8 +17,8 @@
         <ul class="nav justify-content-end ">
           <% if user_signed_in? %>
             <li><%=link_to ' '+current_user.name, user_path(current_user.id), class: "fas fa-user-alt mx-3 text-light" %></li>
-            <li><%=link_to ' 部員一覧', users_path,class: "fas fa-user-friends mx-3 text-light" %></li>
-            <li><%=link_to ' ジャンル一覧', genres_path,class: "mx-3 text-light" %></li>
+            <li><%=link_to ' 部員', users_path,class: "fas fa-user-friends mx-3 text-light" %></li>
+            <li><%=link_to ' ジャンル', genres_path,class: "mx-3 text-light" %></li>
             <li><%=link_to ' ログアウト', destroy_user_session_path, method: :delete,class: "fas fa-sign-out-alt mx-3 text-light" %></li>
           <% else %>
             <li><%=link_to ' Home', '/', class: "fas fa-home mx-3 text-light"%></li>

@@ -6,10 +6,10 @@ class GenresController < ApplicationController
 
   def show
     @genre = Genre.find(params[:id])
-    @genre_users_info = UserGenreInfo.where(genre_id: @genre.id, is_valid: true)
+    @genre1_users_info = UserGenreInfo.where(genre_id: @genre.id, is_valid: true, priority: 1.to_i)
+    @genre2_users_info = UserGenreInfo.where(genre_id: @genre.id, is_valid: true, priority: 2)
     @request_users_info = UserGenreInfo.where(genre_id: @genre.id, is_valid: false)
-    @new_user_genre_info = UserGenreInfo.new
-    @members = @genre.users
+    #@new_user_genre_info = UserGenreInfo.new
     #binding.pry
   end
 

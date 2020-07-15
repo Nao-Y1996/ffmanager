@@ -11,10 +11,6 @@
 <table class="table ">
 	<tbody>
 		<tr>
-			<td><%= user.term %>th</td>
-			<td></td>
-		</tr>
-		<tr>
 			<td>1ジャン</td>
 			<td><%= genre1_name %>
 				<% if genre1_name.include?("申請中") && user==current_user %>
@@ -37,7 +33,6 @@
 			<td>
 				<%if user.is_admin %> 代表 <%end%>
 				<%if user.is_genre_leader? %> 部門長 <%end%>
-
 			</td>
 		</tr>
 	</tbody>
@@ -45,7 +40,7 @@
 
 	<%=link_to '', edit_user_path(user.id), class: "fas fa-edit btn btn-outline-secondary btn-block text-dark"%>
 
-<div class="my-2">
+<div class="mt-2 mb-5">
 <%=link_to 'ジャンル申請', new_user_genre_info_path, class: "btn btn-secondary btn-block "%>
 </div>
 <%if current_user.is_admin==true && user.is_admin==true%>

@@ -1,6 +1,7 @@
 class UserGenreInfosController < ApplicationController
 	before_action :authenticate_user!
 	before_action :user_genre_info_params, only: [:create, :update]
+	before_action :belongs_to_genre, only: [:destroy]
 
 	def new
 		@user_genre_info = UserGenreInfo.new
@@ -72,10 +73,10 @@ class UserGenreInfosController < ApplicationController
 
 	#ジャンルの退会
 	def destroy
-		info = UserGenreInfo.find(params[:info_id].to_i)
-		user_id = info.user_id
+		genre = Genre.find(params[:id])
+		info = UserGenreInfo.find_by(user_id: current_user.id ,genre_id: genre.id)
     	info.destroy
-    	redirect_to user_path(user_id)
+    	redirect_to user_path(current_user)
 	end
 
 	#部門長の登録
@@ -144,14 +145,17 @@ class UserGenreInfosController < ApplicationController
 	  end
 	end
 
-
 	def user_genre_info_params
 	  params.permit(:genre_id, :user_id, :priority, :is_valid, :is_genre_leader)
 	  #binding.pry
 	  #require(:user_genre_info).
     end
 
-    def is_genre_leader_or_admin?
-
+    def belongs_to_genre
+    	genre = Genre.find(params[:id])
+    	if current_user.belongs_to_genre?(genre) != true
+    		redirect_to user_path(current_user)
+    	end
     end
+
 end
