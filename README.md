@@ -1,26 +1,46 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Ruby version '2.5.7'
 
-Things you may want to cover:
+FF(ダンスサークル運営サポートアプリ)
 
-* Ruby version
+#現在の機能
+##ユーザー
+	sign_up,sign_in
+	マーページ（自分の情報）
 
-* System dependencies
+##ジャンル１、ジャンル２の管理
+	ジャンルの参加申請
+	ジャンルの参加承認（部門長のみ）
+	ジャンルの退会
 
-* Configuration
+##ユーザーの権限
+	部門長の登録
+	部門長の削除
+	代表の登録
+	代表の削除
+	デフォルトの代表
 
-* Database creation
+##表示
+	ジャンル
+	ジャンル別メンバー（1,2ジャン別）
 
-* Database initialization
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+#これから実装予定の機能
+##ユーザー
+	自分の情報の編集
 
-* Deployment instructions
+##イベントの作成
+	アクティブ、非アクティブの切替
 
-* ...
-メンバー表示を１ジャン、２ジャンで分ける
-学年順に並べる
+##イベントごとのショーケース作成
+	作成者＝ショーケース代表
+
+##ショーケース参加
+	ショーケース参加者の承認
+
+##係
+	登録
+	削除
+	編集

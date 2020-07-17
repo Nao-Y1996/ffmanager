@@ -25,7 +25,7 @@
 <h2>申請中</h2>
 <%if @request_users_info!=nil %>
 	<% @request_users_info.each do |request_user_info| %>
-		<%= request_user_info.user.name%>
+		<%= request_user_info.user.name %>
 		<!--部門長であることの確認処理-->
 		<% genre1 = current_user.user_genre_infos.where(priority: 1) %>
 		<% if current_user.is_genre_leader? && genre1[0]!=nil && @genre.id == genre1[0].genre_id %>

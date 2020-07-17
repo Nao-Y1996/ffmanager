@@ -9,8 +9,6 @@ class GenresController < ApplicationController
     @genre1_users_info = UserGenreInfo.where(genre_id: @genre.id, is_valid: true, priority: 1.to_i)
     @genre2_users_info = UserGenreInfo.where(genre_id: @genre.id, is_valid: true, priority: 2)
     @request_users_info = UserGenreInfo.where(genre_id: @genre.id, is_valid: false)
-    #@new_user_genre_info = UserGenreInfo.new
-    #binding.pry
   end
 
   def edit
