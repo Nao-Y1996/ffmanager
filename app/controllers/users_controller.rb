@@ -4,7 +4,9 @@ class UsersController < ApplicationController
 	before_action :is_admin?, only: [:change_is_admin]
 
   def index
-  	@users = User.all
+  	#@users = User.all
+    @users = User.order("term")
+    @first = get_1st_grade_term
   end
 
   def show

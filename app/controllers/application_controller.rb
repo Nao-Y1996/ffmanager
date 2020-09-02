@@ -15,7 +15,17 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
-
+	#最小の学年(1年生)の代を取得する
+	def get_1st_grade_term
+		all_users = User.all
+		grade1_term = 0
+		all_users.each do |user|
+		  if user.term > grade1_term
+		    grade1_term = user.term
+		  end
+		end
+		return grade1_term
+	end
 
 
     private

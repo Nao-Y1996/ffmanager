@@ -147,8 +147,6 @@ class UserGenreInfosController < ApplicationController
 
 	def user_genre_info_params
 	  params.permit(:genre_id, :user_id, :priority, :is_valid, :is_genre_leader)
-	  #binding.pry
-	  #require(:user_genre_info).
     end
 
     def belongs_to_genre

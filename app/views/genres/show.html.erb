@@ -1,11 +1,25 @@
 <h1><%= @genre.name %></h1>
 <div class="member-container">
-
 	<div class=member-box>
 		<h2>1ジャン</h2>
 		<%if @genre1_users_info!=nil %>
-			<% @genre1_users_info.each do |genre1_user_info| %>
-			<%=link_to genre1_user_info.user.name, user_path(genre1_user_info.user.id),class: "user_name" %></br>
+			<% @genre1_3rd_users.each do |genre1_3rd_user| %>
+			<p>
+				<%= genre1_3rd_user.term %>th
+				<%=link_to genre1_3rd_user.name, user_path(genre1_3rd_user.id),class: "user_name" %></br>
+			</p>
+			<%end%>
+			<% @genre1_2nd_users.each do |genre1_2nd_user| %>
+			<p>
+				<%= genre1_2nd_user.term %>th
+				<%=link_to genre1_2nd_user.name, user_path(genre1_2nd_user.id),class: "user_name" %></br>
+			</p>
+			<%end%>
+			<% @genre1_1st_users.each do |genre1_1st_user| %>
+			<p>
+				<%= genre1_1st_user.term %>th
+				<%=link_to genre1_1st_user.name, user_path(genre1_1st_user.id),class: "user_name" %></br>
+			</p>
 			<%end%>
 		<%end%>
 	</div>
@@ -13,8 +27,23 @@
 	<div class=member-box>
 		<h2>2ジャン</h2>
 		<%if @genre2_users_info!=nil %>
-			<% @genre2_users_info.each do |genre2_user_info| %>
-			<%=link_to genre2_user_info.user.name, user_path(genre2_user_info.user.id),class: "user_name" %></br>
+			<% @genre2_3rd_users.each do |genre2_3rd_user| %>
+			<p>
+				<%= genre2_3rd_user.term %>th
+				<%=link_to genre2_3rd_user.name, user_path(genre2_3rd_user.id),class: "user_name" %></br>
+			</p>
+			<%end%>
+			<% @genre2_2nd_users.each do |genre2_2nd_user| %>
+			<p>
+				<%= genre2_2nd_user.term %>th
+				<%=link_to genre2_2nd_user.name, user_path(genre2_2nd_user.id),class: "user_name" %></br>
+			</p>
+			<%end%>
+			<% @genre2_1st_users.each do |genre2_1st_user| %>
+			<p>
+				<%= genre2_1st_user.term %>th
+				<%=link_to genre2_1st_user.name, user_path(genre2_1st_user.id),class: "user_name" %></br>
+			</p>
 			<%end%>
 		<%end%>
 	</div>
@@ -22,8 +51,9 @@
 </div>
 
 
-<h2>申請中</h2>
+
 <%if @request_users_info!=nil %>
+	<h2>申請中</h2>
 	<% @request_users_info.each do |request_user_info| %>
 		<%= request_user_info.user.name %>
 		<!--部門長であることの確認処理-->
@@ -33,6 +63,8 @@
 		<%end%>
 	<%end%>
 <%end%>
+
+
 <% if current_user.belongs_to_genre?(@genre) %>
 <div class="button-center">
   <%=link_to 'ジャンル退会', user_genre_info_path(@genre), method: :delete, class: " my-5 btn btn-danger ", data: {confirm: "退会前に部門長に確認してください。退会しますか？"}%>
