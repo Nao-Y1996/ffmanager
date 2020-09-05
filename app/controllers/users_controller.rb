@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
   def change_is_admin
   	user = User.find(params[:user_id])
-  	if user.is_admin == true
+  	if user.is_admin
   		user.is_admin = false
   		user.save
   		redirect_to user_path(user)

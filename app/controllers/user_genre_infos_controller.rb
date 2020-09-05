@@ -18,19 +18,19 @@ class UserGenreInfosController < ApplicationController
 		if @user_genre_info.save
 			redirect_to user_path(current_user)
 		#1ジャン登録済で1ジャン申請してきた時
-	    elsif genre1_info!=nil && genre1_info.is_valid==true && @user_genre_info.is_valid==false && @user_genre_info.priority==1
+	    elsif genre1_info && genre1_info.is_valid && @user_genre_info.is_valid==false && @user_genre_info.priority==1
 	      flash[:join_request_error] = '1ジャンは登録済です。新規で登録するには1ジャンの登録を解除してください'
 	      redirect_to new_user_genre_info_path
 	    #2ジャン登録済で2ジャン申請してきた時
-	    elsif genre2_info!=nil && genre2_info.is_valid==true && @user_genre_info.is_valid==false && @user_genre_info.priority==2
+	    elsif genre2_info && genre2_info.is_valid && @user_genre_info.is_valid==false && @user_genre_info.priority==2
 	      flash[:join_request_error] = '2ジャンは登録済です。新規で登録するには2ジャンの登録を解除してください'
 	      redirect_to new_user_genre_info_path
 	    #1ジャン申請済で1ジャン申請してきた時
-	    elsif genre1_info!=nil && genre1_info.is_valid==false && @user_genre_info.is_valid==false && @user_genre_info.priority==1
+	    elsif genre1_info && genre1_info.is_valid==false && @user_genre_info.is_valid==false && @user_genre_info.priority==1
 	      flash[:join_request_error] = '1ジャンは申請済です。新規で申請するには1ジャンの申請を解除してください'
 	      redirect_to new_user_genre_info_path
 	    #2ジャン申請済で2ジャン申請してきた時
-	    elsif genre2_info!=nil && genre2_info.is_valid==false && @user_genre_info.is_valid==false && @user_genre_info.priority==2
+	    elsif genre2_info && genre2_info.is_valid==false && @user_genre_info.is_valid==false && @user_genre_info.priority==2
 	      flash[:join_request_error] = '2ジャンは申請済です。新規で申請するには2ジャンの申請を解除してください'
 	      redirect_to new_user_genre_info_path
 	    else
@@ -45,7 +45,7 @@ class UserGenreInfosController < ApplicationController
 		genre = Genre.find(params[:genre_id])
     	current_user_genre1 = current_user.user_genre_infos.find_by(priority: 1)
     	#(現在のユーザーが1ジャン登録している かつ 対象のジャンルと現在のユーザーの1ジャンが一致　かつ　現在のユーザが部門長)または(代表)
-    	if (current_user_genre1!=nil && genre.id==current_user_genre1.genre_id && current_user_genre1.is_genre_leader) or (current_user.is_admin==true)
+    	if (current_user_genre1 && genre.id==current_user_genre1.genre_id && current_user_genre1.is_genre_leader) or (current_user.is_admin)
     	#-----------------------------------------------------------------------------
     		user_info = UserGenreInfo.find(params[:info_id])
 			#user_info.is_valid = true
