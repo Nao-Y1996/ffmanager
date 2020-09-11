@@ -1,3 +1,19 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.user_edit{
+	margin:0 auto;
+}
+.user_form{
+	display:flex;
+	justify-content:center;
+	margin:10px auto;
+}
+.user_form_label{
+	width:150px;
+	margin:0;
+	align-items: center;
+}
+
+
+
