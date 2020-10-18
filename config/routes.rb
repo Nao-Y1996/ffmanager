@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   resources :user_genre_infos, only: [:new, :create, :update, :destroy]
 
   resources :events
-  resources :event_participants, only: [:create,:update, :destroy]
+  resources :event_participations, only: [:create,:update, :destroy]
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

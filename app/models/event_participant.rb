@@ -1,2 +1,0 @@
-class EventParticipant < ApplicationRecord
-end

@@ -4,9 +4,29 @@
 			<%= render 'users/user_info', user: @user %>
 		</div>
 		<div class="col-lg-8">
-			<div class='row mt-5'>
-
-		    </div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>日程</th>
+						<th>参加イベント</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @user.events.order(start_at: "DESC").each do |event| %>
+						<tr>
+							<td class="none_wrap">
+								<% if event.start_at == event.end_at%>
+									<%= event.start_at.strftime("%Y/%m/%d") %>
+								<% else %>
+									<%= event.start_at.strftime("%Y/%m/%d") %></br>
+									<%= event.end_at.strftime("~%d") %>
+								<% end %>
+							</td>
+							<td><%=link_to event.name, event_path(event) %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>

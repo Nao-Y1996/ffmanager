@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_12_083031) do
+ActiveRecord::Schema.define(version: 2020_10_16_082234) do
+
+  create_table "event_participations", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "event_id", null: false
+    t.boolean "is_event_admin", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.date "end_at", null: false
+    t.date "start_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "genres", force: :cascade do |t|
     t.string "name", null: false
@@ -19,9 +36,9 @@ ActiveRecord::Schema.define(version: 2020_05_12_083031) do
   end
 
   create_table "user_genre_infos", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "genre_id"
-    t.integer "priority"
+    t.integer "user_id", null: false
+    t.integer "genre_id", null: false
+    t.integer "priority", null: false
     t.boolean "is_valid", default: false
     t.boolean "is_genre_leader", default: false
     t.datetime "created_at", null: false

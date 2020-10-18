@@ -1,2 +1,62 @@
-<h1>Events#index</h1>
-<p>Find me in app/views/events/index.html.erb</p>
+<h3>イベント一覧</h3>
+<div class="container">
+	<div class='row'>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>日程</th>
+					<th>イベント名</th>
+					<th>人数</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @active_event.each do |event| %>
+					<tr>
+						<td class="none_wrap">
+							<% if event.start_at == event.end_at%>
+								<%= event.start_at.strftime("%m/%d") %>
+							<% else %>
+								<%= event.start_at.strftime("%m/%d") %></br>
+								<%= event.end_at.strftime("~%d") %>
+							<% end %>
+						</td>
+						<td><%=link_to event.name, event_path(event) %></td>
+						<td><%= event.users.count %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+
+
+		<details style="margin-top:1rem;">
+		<summary>過去のイベント：<%=@past_event.count %>件</summary>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>日程</th>
+					<th>イベント名</th>
+					<th>人数</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @past_event.reverse_each do |event| %>
+					<tr>
+						<td class="none_wrap">
+							<% if event.start_at == event.end_at%>
+								<%= event.start_at.strftime("%m/%d") %>
+							<% else %>
+								<%= event.start_at.strftime("%m/%d") %></br>
+								<%= event.end_at.strftime("~%d") %>
+							<% end %>
+						</td>
+						<td><%=link_to event.name, event_path(event) %></td>
+						<td><%= event.users.count %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+		</details>
+
+	</div>
+</div>

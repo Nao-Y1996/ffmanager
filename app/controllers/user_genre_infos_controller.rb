@@ -156,4 +156,5 @@ class UserGenreInfosController < ApplicationController
     	end
     end
 
+
 end

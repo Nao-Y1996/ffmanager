@@ -1,3 +1,106 @@
 // Place all the styles related to the events controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.event_form{
+	display: flex;
+	justify-content:center;
+}
+.event_form input[type="text"] {
+        width: 700px;
+        height: 30px;
+    }
+
+.event_form textarea[id="event_description"] {
+        width: 700px;
+        height: 200px;
+    }
+
+.event_label {
+    margin-bottom: 0.5rem;
+}
+.field{
+	margin-bottom: 1rem;
+}
+
+.event_name {
+  padding: 0.4em 0.0em;/*文字の上下 左右の余白*/
+  color: #494949;/*文字色*/
+}
+
+.event_dexscription{
+    padding: 0.5em 1em;
+    margin: 0 0 2rem 0;
+    color: #5d627b;
+    background: white;
+    border-top: solid 5px #5d627b;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+}
+.event_dexscription p {
+    margin: 0;
+    padding: 0;
+}
+
+.event_admin_assignment{
+    margin: 0 0 0 2rem;
+}
+
+
+.event_participants{
+    margin: 2rem 0;
+}
+
+details {
+  font: 16px "Open Sans", "Arial", sans-serif;
+  width: 100%;
+}
+
+details > summary {
+  padding: 2px 6px;
+  width: 15em;
+  background-color: #ffffff;
+  border: none;
+}
+
+details > p {
+  border-radius: 0 0 10px 10px;
+  background-color: #ffffff;
+  padding: 2px 6px;
+  margin: 0;
+  box-shadow: 1px 1px 2px black;
+}
+
+@media screen and (max-width:720px) {
+.event_form input[type="text"] {
+        width: 500px;
+        height: 30px;
+    }
+.event_form textarea[id="event_description"] {
+        width: 500px;
+        height: 200px;
+    }
+}
+
+@media screen and (max-width:525px) {
+.event_form input[type="text"] {
+        width: 350px;
+        height: 30px;
+    }
+.event_form textarea[id="event_description"] {
+        width: 350px;
+        height: 200px;
+    }
+}
+
+
+@media screen and (max-width:360px) {
+.event_form input[type="text"] {
+        width: 300px;
+        height: 30px;
+    }
+
+.event_form textarea[id="event_description"] {
+        width: 300px;
+        height: 200px;
+    }
+}

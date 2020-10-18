@@ -1,6 +1,6 @@
 <% genre1_name = user.genre1_name %>
 <% genre2_name = user.genre2_name %>
-<h3 class="mt-3"><%= user.term %>th　<%= user.name %></h3>
+<h3><%= user.term %>th<%= + ' ' + user.name %></h3>
 
 <% if flash[:add_genre_leader_error] %>
   <div class="alert alert-danger">
@@ -38,7 +38,19 @@
 	</tbody>
 </table>
 
-	<%=link_to '', edit_user_path(user.id), class: "fas fa-edit btn btn-outline-secondary btn-block text-dark"%>
+<% if flash[:notice]%>
+	<div class="alert alert-success">
+      <%= flash[:notice] %>
+    </div>
+<% end %>
+<% if flash[:warning_notice]%>
+	<div class="alert alert-danger">
+      <%= flash[:warning_notice] %>
+    </div>
+<% end %>
+
+<%=link_to '', edit_user_path(user.id), class: "fas fa-edit btn btn-outline-secondary btn-block text-dark"%>
+<%=link_to 'イベントを作成', new_event_path, class: "btn btn-outline-secondary btn-block text-dark"%>
 
 <div class="mt-2 mb-5">
 <%=link_to 'ジャンル申請', new_user_genre_info_path, class: "btn btn-secondary btn-block "%>

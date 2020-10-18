@@ -9,6 +9,10 @@ class User < ApplicationRecord
 
   has_many :user_genre_infos #おまじない
   has_many :genres, through: :user_genre_infos, #genre.usersが使えるようになる？
+           dependent: :destroy #親モデルを削除する際に、その親モデルに紐づく「子モデル」も一緒に削除できる
+
+  has_many :event_participations
+  has_many :events, through: :event_participations, #genre.usersが使えるようになる？
            dependent: :destroy
 
 
@@ -60,5 +64,26 @@ class User < ApplicationRecord
     else
       user_is_genre_leader = false
     end
+  end
+
+  def is_event_admin(event)
+    if self.event_participations.find_by(is_event_admin: true, event_id: event.id)
+      return true
+    else
+      return false
+    end
+  end
+
+  def joined_event(event)
+    if self.event_participations.find_by(user_id: self.id, event_id: event.id)
+      return true
+    else
+      return false
+    end
+  end
+
+  def event(event_arg)
+    event_participation = event_participations.find_by(user_id: self.id, event_id: event_arg.id)
+    return event_participation
   end
 end
