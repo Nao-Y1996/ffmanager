@@ -1,0 +1,113 @@
+<h3 class="event_name" style="width:100%;box-sizing: border-box;"><%= @event.name %></h3>
+
+<% if @event.start_at == @event.end_at%>
+	<p>日程：<%= @event.start_at.strftime("%Y年%m月%d日") %></p>
+<% else %>
+	<p>日程：<%= @event.start_at.strftime("%Y年%m月%d日 ~") %>
+	<%= @event.end_at.strftime("%d日") %></p>
+<% end %>
+
+<p>連絡事項</p>
+<div class="event_dexscription">
+	<p><%= safe_join(@event.description.split("\n"),tag(:br)) %></p>
+</div>
+
+<!-- フラッシュメッセージの表示 -->
+<% if flash[:event_participation_error]%>
+	<div class="alert alert-danger">
+      <%= flash[:event_participation_error] %>
+    </div>
+<% end %>
+<% if flash[:notice]%>
+	<div class="alert alert-success">
+      <%= flash[:notice] %>
+    </div>
+<% end %>
+
+<!-- 参加ボタン -->
+<% if !(current_user.joined_event(@event)) %>
+	<%= form_for(@new_event_participation, url: event_participations_path(@new_event_participation)) do |f| %>
+		<%= f.hidden_field :user_id, :value => current_user.id %>
+		<%= f.hidden_field :event_id, :value => @event.id %>
+	  	<div class="actions text-center">
+	  		<%= f.submit "参加する" ,class: "btn btn-info text-light" %>
+		</div>
+	<% end %>
+<% end %>
+
+
+
+<!-- 管理者一覧 -->
+<div>イベント管理者</div>
+	<table class="table table-bordered table-sm" >
+		<thead>
+			<tr>
+				<th>代</th>
+				<th>名前</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @admin_participations.each do |admin_participation| %>
+				<tr>
+					<td class="none_wrap"><%= admin_participation.user.term %></td>
+					<td><%= admin_participation.user.name %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+<!-- 参加者一覧 -->
+<div class="event_participants">
+	<details>
+	  <summary>参加者：<%=@event.users.count %>名</summary>
+	  <p class="event_admins">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>代</th>
+					<th>名前</th>
+					<th>ジャンル</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @event.users.reverse_each do |user| %>
+				<tr>
+					<td class="none_wrap"><%= user.term %></td>
+					<td><%= user.name %></td>
+					<td><%= user.genre1_name %>／<%= user.genre2_name %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	  </p>
+	</details>
+</div>
+
+
+<div class="text-center">
+	<!-- ショーケース作成ボタン -->
+	<% if (current_user.joined_event(@event)) %>
+		 <p><%= link_to "ショーケース作成", user_path(current_user),class: "btn btn-info text-light" %></p>
+	<% end %>
+
+	<!-- 参加取り下げボタン -->
+	<% if current_user.joined_event(@event) %>
+	<p><%= link_to "参加取り下げ", event_participation_path(current_user.event(@event),event_id: @event.id ), method: :delete, data: { confirm: '参加を取りやめる前に管理者に連絡してください。
+		参加を取りやめますか？' } ,class: "btn btn-warning text-light" %></p>
+	<% end %>
+
+	<!-- 編集、削除ボタン -->
+	<% if current_user.is_event_admin(@event) or current_user.is_admin %>
+		<%= link_to '編集', edit_event_path(@event.id), class: "btn btn-success text-light" %>
+		<%= link_to '削除', event_path(@event.id), method: :delete, data: { confirm: 'このイベントを削除してよろしいですか？' }, class: " btn btn-danger text-light" %>
+		<p style="font-size: 8px; color: #808080; margin-top: 4px;">代表またはイベント管理者はイベントの編集、削除ができます</p>
+	<% end %>
+
+</div>
+
+
+
+
+
+
+

@@ -1,0 +1,81 @@
+<div class="event_form">
+	<%= form_for(@event) do |f| %>
+
+		<div class="field  text-center">
+          <%= f.label :name,'イベント名', class: "event_label" %><br />
+          <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+        </div>
+
+        <div class="field  text-center">
+          <%= f.label :description,'概要または連絡事項', class: "event_label" %><br />
+          <%= f.text_area :description, autofocus: true, autocomplete: "description" %>
+        </div>
+
+        <div class="field text-center">
+          <%= f.label :start_at,'イベント開始日', class: "event_label" %><br />
+         <%= f.date_select :start_at, {}%>
+        </div>
+
+        <div class="field text-center">
+          <%= f.label :end_at,'イベント終了日', class: "event_label" %><br />
+         <%= f.date_select :end_at, {}%>
+        </div>
+
+		  <div class="actions text-center">
+	      <%= f.submit "保存" ,class: "btn btn-info "%>
+	    </div>
+
+      <% if @event.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+          <% @event.errors.full_messages.each do |message| %>
+            <li class="text-danger"><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+	<% end %>
+</div>
+<!-- フラッシュメッセージの表示 -->
+<% if flash[:event_participation_error]%>
+  <div class="alert alert-danger">
+      <%= flash[:event_participation_error] %>
+    </div>
+<% end %>
+
+
+<div class="event_participants">
+管理者の編集
+    <table class="table">
+      <thead>
+        <tr>
+          <th>代</th>
+          <th>名前</th>
+          <th>管理者権限</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @event.event_participations.reverse_each do |event_participation| %>
+        <tr>
+          <td><%= event_participation.user.term %></td>
+          <td><%= event_participation.user.name %></td>
+          <td>
+            <%if event_participation.is_event_admin %>
+                <%= form_for(event_participation) do |f| %>
+                  <%= f.hidden_field :event_id, :value => @event.id %>
+                  <%= f.hidden_field :is_event_admin, :value => false %>
+                  <%= f.submit "-" ,class: "btn event_admin_assignment" %>
+                <% end %>
+            <% else %>
+                <%= form_for(event_participation) do |f| %>
+                  <%= f.hidden_field :event_id, :value => @event.id %>
+                  <%= f.hidden_field :is_event_admin, :value => true %>
+                  <%= f.submit "+" ,class: "btn event_admin_assignment" %>
+                <% end %>
+            <%end%>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div>

@@ -1,9 +1,9 @@
 class CreateUserGenreInfos < ActiveRecord::Migration[5.2]
   def change
     create_table :user_genre_infos do |t|
-      t.integer :user_id
-      t.integer :genre_id
-      t.integer :priority
+      t.integer :user_id, null: false
+      t.integer :genre_id, null: false
+      t.integer :priority, null: false
       t.boolean :is_valid, default: false
       t.boolean :is_genre_leader, default: false
 

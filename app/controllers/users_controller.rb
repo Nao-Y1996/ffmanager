@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   	@user = User.find(params[:id])
     @genre1_name = @user.genre1_name
     @genre2_name = @user.genre2_name
+    # @event = Event.new
 
   end
 
@@ -22,15 +23,21 @@ class UsersController < ApplicationController
 
   def change_is_admin
   	user = User.find(params[:user_id])
-  	if user.is_admin
-  		user.is_admin = false
-  		user.save
-  		redirect_to user_path(user)
-  	else
-  		user.is_admin = true
-  		user.save
-  		redirect_to user_path(user)
-  	end
+    admin_users = User.where(is_admin: true)
+    	if user.is_admin
+        #現在代表が1人　かつ　自分が代表の時 代表権限を削除できない
+        if admin_users.count==1 and current_user.is_admin
+          flash[:warning_notice] = "代表は1人以上必要です"
+          redirect_to user_path(current_user) and return
+        end
+    		user.is_admin = false
+    		user.save
+    		redirect_to user_path(user) and return
+    	else
+    		user.is_admin = true
+    		user.save
+    		redirect_to user_path(user) and return
+    	end
   end
 
 
@@ -40,7 +47,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:notice] = "You have updated profile successfully."
+      flash[:notice] = "情報を更新しました."
       redirect_to user_path(@user.id)
     else
       render :edit

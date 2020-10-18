@@ -21,3 +21,21 @@
 	font-weight: bold;
 }
 
+table {
+width: 100%;
+word-break: break-all;
+word-wrap: break-all;
+}
+h3 {
+width: 100%;
+word-break: break-all;
+word-wrap: break-all;
+}
+
+th {
+white-space: nowrap
+}
+
+.none_wrap{
+white-space: nowrap
+}

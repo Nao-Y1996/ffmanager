@@ -6,26 +6,25 @@
 		<div class='col-lg-8'>
 
 
-			<h1>部員一覧</h1>
+			<h3>部員一覧</h3>
 			<table class="table">
 				<thead>
 					<tr>
 						<th>代</th>
 						<th>名前</th>
 						<th>ジャンル</th>
-						<th>その他</th>
 					</tr>
 				</thead>
 				<tbody>
 					<% @users.each do |user| %>
 						<tr>
-							<td><%= user.term %></td>
+							<td class="none_wrap"><%= user.term %></td>
 							<td><%=link_to user.name, user_path(user.id),class: "user_name" %></td>
 							<td>1:<%= user.genre1_name %></br>2:<%= user.genre2_name %></td>
-							<td>
+							<!-- <td>
 								<% if user.is_admin %>代表<%end%>
 								<% if user.is_genre_leader? %>部門長<%end%>
-							</td>
+							</td> -->
 						</tr>
 					<%end%>
 				</tbody>
