@@ -117,8 +117,11 @@ end
 
 
 
-User.create!(name: '山田直', name_kana: 'ヤマダナオ', email: 'nao@yamada.com',
+User.create!(name: '山田太郎', name_kana: 'ヤマダタロウ', email: 'taro@yamada.com',
                term: 14, student_number: 000000, is_active: true,
+               is_admin: false,  password: "password", password_confirmation: "password")
+User.create!(name: '山田花子', name_kana: 'ヤマダハナコ', email: 'hanako@yamada.com',
+               term: 14, student_number: 999999, is_active: true,
                is_admin: false,  password: "password", password_confirmation: "password")
 
 # def term(num)

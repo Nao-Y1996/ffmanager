@@ -13,7 +13,7 @@
 						<% genre1_info  = user.get_genre1_info %>
 						<%= link_to '取り消し',{controller: "user_genre_infos", action: "destroy_request", info_id: genre1_info.id}, method: :patch, class: "btn btn-outline-danger destroy_genre_request_button btn-sm" %>
 					<% end %>
-				<% elsif genre1_name == "未登録" %>
+				<% elsif genre1_name == "未登録" and user.id == current_user.id %>
 					<details>
 						<summary class="genre_request_pull_down">申請</summary>
 						<%= form_for(user_genre_info) do |f| %>
@@ -37,7 +37,7 @@
 						<% genre2_info  = user.get_genre2_info %>
 					<%= link_to '取り消し',{controller: "user_genre_infos", action: "destroy_request", info_id: genre2_info.id}, method: :patch, class: "btn btn-outline-danger destroy_genre_request_button btn-sm" %>
 					<% end %>
-				<% elsif genre2_name == "未登録" %>
+				<% elsif genre2_name == "未登録" and user.id == current_user.id  %>
 					<details>
 						<summary class="genre_request_pull_down">申請</summary>
 						<%= form_for(user_genre_info) do |f| %>

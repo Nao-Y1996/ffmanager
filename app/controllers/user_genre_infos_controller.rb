@@ -9,37 +9,43 @@ class UserGenreInfosController < ApplicationController
 
   	#ジャンルへの登録申請
 	def create
-		user_info = current_user.user_genre_infos#どのジャンルにも登録されてない時→nilにならずに[]が返る
-		genre1_info = user_info.where(priority: 1)[0]#見つからない時はnil
-		genre2_info = user_info.where(priority: 2)[0]
-		@user_genre_info = UserGenreInfo.new(params_int(params[:user_genre_info]))
-		binding.pry
-		if @user_genre_info.save
+		#他人のジャンル申請はできないようにする(他人のマイページには申請ボタンがないので、UIからの操作でこの処理は実行されないはずだが...)
+		#そもそもジャンル申請のuser_idはcurrent_user.idを使っているのでできないはず、念のため
+		if params[:user_genre_info][:user_id] != current_user.id
+			flash[:warning_notice] = '無効な操作です。'
 			redirect_to user_path(current_user)
-		#同一ジャンルの申請をしてきたとき
-	    elsif (genre1_info && genre1_info.genre_id == params[:user_genre_info][:genre_id]) or (genre2_info && genre2_info.genre_id == params[:user_genre_info][:genre_id])
-	      flash[:warning_notice] = '重複したジャンルは登録できません。'
-	      redirect_to user_path(current_user)
-	    #---------------ここから下の状況はUIの操作からは発生しないはず-------------
-		#1ジャン登録済で1ジャン申請してきた時
-	    elsif genre1_info && genre1_info.is_valid && @user_genre_info.is_valid==false && @user_genre_info.priority==1
-	      flash[:warning_notice] = '1ジャンは登録済です。新規で登録するには1ジャンの登録を解除してください。'
-	      redirect_to user_path(current_user)
-	    #2ジャン登録済で2ジャン申請してきた時
-	    elsif genre2_info && genre2_info.is_valid && @user_genre_info.is_valid==false && @user_genre_info.priority==2
-	      flash[:warning_notice] = '2ジャンは登録済です。新規で登録するには2ジャンの登録を解除してください。'
-	      redirect_to user_path(current_user)
-	    #1ジャン申請済で1ジャン申請してきた時
-	    elsif genre1_info && genre1_info.is_valid==false && @user_genre_info.is_valid==false && @user_genre_info.priority==1
-	      flash[:warning_notice] = '1ジャンは申請済です。新規で申請するには1ジャンの申請を解除してください。'
-	      redirect_to user_path(current_user)
-	    #2ジャン申請済で2ジャン申請してきた時
-	    elsif genre2_info && genre2_info.is_valid==false && @user_genre_info.is_valid==false && @user_genre_info.priority==2
-	      flash[:warning_notice] = '2ジャンは申請済です。新規で申請するには2ジャンの申請を解除してください。'
-	      redirect_to user_path(current_user)
-	    else
-	      flash[:warning_notice] = 'ジャンル申請でエラーが発生しました。やり直してください。改善しない場合はアプリ開発者に連絡してください。'
-	      redirect_to user_path(current_user)
+		else
+			user_info = current_user.user_genre_infos#どのジャンルにも登録されてない時→nilにならずに[]が返る
+			genre1_info = user_info.where(priority: 1)[0]#見つからない時はnil
+			genre2_info = user_info.where(priority: 2)[0]
+			@user_genre_info = UserGenreInfo.new(params_int(params[:user_genre_info]))
+			if @user_genre_info.save
+				redirect_to user_path(current_user)
+			#同一ジャンルの申請をしてきたとき
+		    elsif (genre1_info && genre1_info.genre_id == params[:user_genre_info][:genre_id]) or (genre2_info && genre2_info.genre_id == params[:user_genre_info][:genre_id])
+		      flash[:warning_notice] = '重複したジャンルは登録できません。'
+		      redirect_to user_path(current_user)
+		    #---------------ここから下の状況はUIの操作からは発生しないはず-------------
+			#1ジャン登録済で1ジャン申請してきた時
+		    elsif genre1_info && genre1_info.is_valid && @user_genre_info.is_valid==false && @user_genre_info.priority==1
+		      flash[:warning_notice] = '1ジャンは登録済です。新規で登録するには1ジャンの登録を解除してください。'
+		      redirect_to user_path(current_user)
+		    #2ジャン登録済で2ジャン申請してきた時
+		    elsif genre2_info && genre2_info.is_valid && @user_genre_info.is_valid==false && @user_genre_info.priority==2
+		      flash[:warning_notice] = '2ジャンは登録済です。新規で登録するには2ジャンの登録を解除してください。'
+		      redirect_to user_path(current_user)
+		    #1ジャン申請済で1ジャン申請してきた時
+		    elsif genre1_info && genre1_info.is_valid==false && @user_genre_info.is_valid==false && @user_genre_info.priority==1
+		      flash[:warning_notice] = '1ジャンは申請済です。新規で申請するには1ジャンの申請を解除してください。'
+		      redirect_to user_path(current_user)
+		    #2ジャン申請済で2ジャン申請してきた時
+		    elsif genre2_info && genre2_info.is_valid==false && @user_genre_info.is_valid==false && @user_genre_info.priority==2
+		      flash[:warning_notice] = '2ジャンは申請済です。新規で申請するには2ジャンの申請を解除してください。'
+		      redirect_to user_path(current_user)
+		    else
+		      flash[:warning_notice] = 'ジャンル申請でエラーが発生しました。やり直してください。改善しない場合はアプリ開発者に連絡してください。'
+		      redirect_to user_path(current_user)
+			end
 		end
 	end
 
