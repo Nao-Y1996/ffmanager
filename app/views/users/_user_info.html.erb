@@ -2,29 +2,53 @@
 <% genre2_name = user.genre2_name %>
 <h3><%= user.term %>th<%= + ' ' + user.name %></h3>
 
-<% if flash[:add_genre_leader_error] %>
-  <div class="alert alert-danger">
-    <%= flash[:add_genre_leader_error] %>
-  </div>
-<% end %>
-
-<table class="table ">
+<table class="table">
 	<tbody>
 		<tr>
-			<td>1ジャン</td>
-			<td><%= genre1_name %>
-				<% if genre1_name.include?("申請中") && user==current_user %>
-				<% genre1_info  = user.get_genre1_info %>
-				<%= link_to '申請取り消し',{controller: "user_genre_infos", action: "destroy_request", info_id: genre1_info.id}, method: :patch, class: "btn btn-danger" %>
+			<td class="none_wrap">1ジャン</td>
+			<td>
+				<% if genre1_name.include?("申請中") %>
+					<span class="genre_name"><%= genre1_name%></span>
+					<% if user==current_user %>
+						<% genre1_info  = user.get_genre1_info %>
+						<%= link_to '取り消し',{controller: "user_genre_infos", action: "destroy_request", info_id: genre1_info.id}, method: :patch, class: "btn btn-outline-danger destroy_genre_request_button btn-sm" %>
+					<% end %>
+				<% elsif genre1_name == "未登録" %>
+					<details>
+						<summary class="genre_request_pull_down">申請</summary>
+						<%= form_for(user_genre_info) do |f| %>
+					　　 	<%= f.hidden_field :priority, :value => 1 %>
+							<%= f.hidden_field :user_id, :value => current_user.id %>
+							<%= f.select :genre_id, [["Lock", 1.to_i], ["Hiphop", 2], ["Punking", 3], ["Break", 4], ["Juzz", 5], ["Poping", 6], ["Krump", 7], ["House", 8], ["Girls", 9]], include_blank: "ジャンル選択" %>
+					        <%= f.submit "申請する", class: "genre_request_button" %>
+					    <% end %>
+					</details>
+				<% else %>
+					<span class="genre_name"><%= genre1_name%></span>
 				<% end %>
 			</td>
 		</tr>
 		<tr>
-			<td>2ジャン</td>
-			<td><%= genre2_name %>
-				<% if genre2_name.include?("申請中") && user==current_user %>
-				<% genre2_info  = user.get_genre2_info %>
-				<%= link_to '申請取り消し',{controller: "user_genre_infos", action: "destroy_request", info_id: genre2_info.id}, method: :patch,class: "btn btn-danger" %>
+			<td class="none_wrap">2ジャン</td>
+			<td>
+				<% if genre2_name.include?("申請中") %>
+					<span class="genre_name"><%= genre2_name%></span>
+					<% if user==current_user %>
+						<% genre2_info  = user.get_genre2_info %>
+					<%= link_to '取り消し',{controller: "user_genre_infos", action: "destroy_request", info_id: genre2_info.id}, method: :patch, class: "btn btn-outline-danger destroy_genre_request_button btn-sm" %>
+					<% end %>
+				<% elsif genre2_name == "未登録" %>
+					<details>
+						<summary class="genre_request_pull_down">申請</summary>
+						<%= form_for(user_genre_info) do |f| %>
+					　　 	<%= f.hidden_field :priority, :value => 2 %>
+							<%= f.hidden_field :user_id, :value => current_user.id %>
+							<%= f.select :genre_id, [["Lock", 1.to_i], ["Hiphop", 2], ["Punking", 3], ["Break", 4], ["Juzz", 5], ["Poping", 6], ["Krump", 7], ["House", 8], ["Girls", 9]], include_blank: "ジャンル選択" %>
+					        <%= f.submit "申請する", class: "genre_request_button" %>
+						 <% end %>
+					</details>
+				<% else %>
+					<span class="genre_name"><%= genre2_name%></span>
 				<% end %>
 			</td>
 		</tr>
@@ -50,10 +74,9 @@
 <% end %>
 
 <%=link_to '', edit_user_path(user.id), class: "fas fa-edit btn btn-outline-secondary btn-block text-dark"%>
-<%=link_to 'イベントを作成', new_event_path, class: "btn btn-outline-secondary btn-block text-dark"%>
 
-<div class="mt-2 mb-5">
-<%=link_to 'ジャンル申請', new_user_genre_info_path, class: "btn btn-secondary btn-block "%>
+<div class="mt-2 mb-2">
+<%=link_to 'イベント作成', new_event_path, class: "btn btn-outline-secondary btn-block text-dark"%>
 </div>
 <%if current_user.is_admin==true && user.is_admin==true%>
 	<%=  link_to '- 代表', user_change_is_admin_path(user_id: user.id), method: :patch, class: "btn btn-danger"%>

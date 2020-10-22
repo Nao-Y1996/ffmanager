@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   patch 'user_genre_infos/add_genre_leader', to: 'user_genre_infos#add_genre_leader'
   patch 'user_genre_infos/destroy_genre_leader', to: 'user_genre_infos#destroy_genre_leader'
   patch 'user_genre_infos/destroy_request', to: 'user_genre_infos#destroy_request'
-  resources :user_genre_infos, only: [:new, :create, :update, :destroy]
+  resources :user_genre_infos, only: [:create, :update, :destroy]
 
   resources :events
   resources :event_participations, only: [:create,:update, :destroy]
