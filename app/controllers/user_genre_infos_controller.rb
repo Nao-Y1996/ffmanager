@@ -38,7 +38,7 @@ class UserGenreInfosController < ApplicationController
 	      flash[:warning_notice] = '2ジャンは申請済です。新規で申請するには2ジャンの申請を解除してください。'
 	      redirect_to user_path(current_user)
 	    else
-	      flash[:warning_notice] = 'エラーが発生しました。やり直してください。改善しない場合はアプリ開発者に連絡してください。'
+	      flash[:warning_notice] = 'ジャンル申請でエラーが発生しました。やり直してください。改善しない場合はアプリ開発者に連絡してください。'
 	      redirect_to user_path(current_user)
 		end
 	end
