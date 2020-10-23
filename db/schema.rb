@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 2020_10_16_082234) do
     t.datetime "updated_at", null: false
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["student_number"], name: "index_users_on_student_number", unique: true
+    t.index ["term"], name: "index_users_on_term"
   end
 
 end

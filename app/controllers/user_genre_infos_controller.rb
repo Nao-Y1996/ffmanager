@@ -11,8 +11,9 @@ class UserGenreInfosController < ApplicationController
 	def create
 		#他人のジャンル申請はできないようにする(他人のマイページには申請ボタンがないので、UIからの操作でこの処理は実行されないはずだが...)
 		#そもそもジャンル申請のuser_idはcurrent_user.idを使っているのでできないはず、念のため
-		if params[:user_genre_info][:user_id] != current_user.id
-			flash[:warning_notice] = '無効な操作です。'
+		# binding.pry
+		if params[:user_genre_info][:user_id].to_i != current_user.id
+			flash[:danger_notice] = '無効な操作です。'
 			redirect_to user_path(current_user)
 		else
 			user_info = current_user.user_genre_infos#どのジャンルにも登録されてない時→nilにならずに[]が返る
@@ -23,27 +24,27 @@ class UserGenreInfosController < ApplicationController
 				redirect_to user_path(current_user)
 			#同一ジャンルの申請をしてきたとき
 		    elsif (genre1_info && genre1_info.genre_id == params[:user_genre_info][:genre_id]) or (genre2_info && genre2_info.genre_id == params[:user_genre_info][:genre_id])
-		      flash[:warning_notice] = '重複したジャンルは登録できません。'
+		      flash[:danger_notice] = '重複したジャンルは登録できません。'
 		      redirect_to user_path(current_user)
 		    #---------------ここから下の状況はUIの操作からは発生しないはず-------------
 			#1ジャン登録済で1ジャン申請してきた時
 		    elsif genre1_info && genre1_info.is_valid && @user_genre_info.is_valid==false && @user_genre_info.priority==1
-		      flash[:warning_notice] = '1ジャンは登録済です。新規で登録するには1ジャンの登録を解除してください。'
+		      flash[:danger_notice] = '1ジャンは登録済です。新規で登録するには1ジャンの登録を解除してください。'
 		      redirect_to user_path(current_user)
 		    #2ジャン登録済で2ジャン申請してきた時
 		    elsif genre2_info && genre2_info.is_valid && @user_genre_info.is_valid==false && @user_genre_info.priority==2
-		      flash[:warning_notice] = '2ジャンは登録済です。新規で登録するには2ジャンの登録を解除してください。'
+		      flash[:danger_notice] = '2ジャンは登録済です。新規で登録するには2ジャンの登録を解除してください。'
 		      redirect_to user_path(current_user)
 		    #1ジャン申請済で1ジャン申請してきた時
 		    elsif genre1_info && genre1_info.is_valid==false && @user_genre_info.is_valid==false && @user_genre_info.priority==1
-		      flash[:warning_notice] = '1ジャンは申請済です。新規で申請するには1ジャンの申請を解除してください。'
+		      flash[:danger_notice] = '1ジャンは申請済です。新規で申請するには1ジャンの申請を解除してください。'
 		      redirect_to user_path(current_user)
 		    #2ジャン申請済で2ジャン申請してきた時
 		    elsif genre2_info && genre2_info.is_valid==false && @user_genre_info.is_valid==false && @user_genre_info.priority==2
-		      flash[:warning_notice] = '2ジャンは申請済です。新規で申請するには2ジャンの申請を解除してください。'
+		      flash[:danger_notice] = '2ジャンは申請済です。新規で申請するには2ジャンの申請を解除してください。'
 		      redirect_to user_path(current_user)
 		    else
-		      flash[:warning_notice] = 'ジャンル申請でエラーが発生しました。やり直してください。改善しない場合はアプリ開発者に連絡してください。'
+		      flash[:danger_notice] = 'ジャンル申請でエラーが発生しました。やり直してください。改善しない場合はアプリ開発者に連絡してください。'
 		      redirect_to user_path(current_user)
 			end
 		end
@@ -63,11 +64,11 @@ class UserGenreInfosController < ApplicationController
 	    		flash[:notice] = "承認に成功しました."
 	   			redirect_to genre_path(genre) and return
 	   		else#権限の確認をしているので承認に失敗する状況はないと思うが、失敗したと気に表示(その時はシステムの改善が必要)
-	    		flash[:notice] = "承認に失敗しました."
+	    		flash[:danger_notice] = "承認に失敗しました."
 				redirect_to genre_path(genre) and return
 			end
     	else#権限がないユーザーには承認ボタンを設置していないが、URLから直接承認しようとしてきた時(できるか知らんけど)の対策
-    		flash[:notice] = "承認権限がありません."
+    		flash[:danger_notice] = "承認権限がありません."
     		redirect_to genre_path(genre) and return
     	end
 	end
@@ -123,14 +124,14 @@ class UserGenreInfosController < ApplicationController
 		user_genre1_info = UserGenreInfo.find_by(user_id: params[:user_id] ,priority: 1)
 		#genre1_infoが存在することを保証する（1ジャン登録してないユーザーは部門長になっていないはずだが...）
 		if user_genre1_info==nil
-		  flash[:warning_notice]='エラー：部門長情報を取得できません。アプリ制作者に報告してください。email: 0809n.ysoccer@gmail.com'
+		  flash[:danger_notice]='エラー：部門長情報を取得できません。アプリ制作者に報告してください。email: 0809n.ysoccer@gmail.com'
 		  redirect_to user_path(params[:user_id])
 		else
 			if user_genre1_info.update(is_genre_leader: false)
 				flash[:notice]='部門長権限を削除しました'
 				redirect_to user_path(params[:user_id])
 			else#ここが実行されることはない気がするが...一応入れておく
-				flash[:warning_notice]='エラー：部門長権限を削除できませんでした'
+				flash[:danger_notice]='エラー：部門長権限を削除できませんでした'
 				redirect_to user_path(params[:user_id])
 			end
 		end

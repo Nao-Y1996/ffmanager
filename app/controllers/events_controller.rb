@@ -25,7 +25,7 @@ def new
           redirect_to event_path(@event)
         else
           #ここの処理が実行されることはないはずだが、、、
-          flash[:warning_notice] = 'イベント作成でエラーが発生しました。やり直してください。改善しない場合はアプリ開発者に連絡してください。'
+          flash[:danger_notice] = 'イベント作成でエラーが発生しました。やり直してください。改善しない場合はアプリ開発者に連絡してください。'
           redirect_to user_path(current_user)
         end
       else
@@ -68,7 +68,7 @@ def new
   def correct_user#event管理者or代表のみ編集、削除可能
     event = Event.find(params[:id])
     if !(current_user.is_event_admin(event) or current_user.is_admin)
-      flash[:warning_notice] = "イベントの編集,削除権限がありません"
+      flash[:danger_notice] = "イベントの編集,削除権限がありません"
       redirect_to user_path(current_user)
     end
   end

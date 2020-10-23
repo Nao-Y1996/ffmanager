@@ -25,12 +25,13 @@
 <% end %>
 
 <!-- 参加ボタン -->
+
 <% if !(current_user.joined_event(@event)) %>
 	<%= form_for(@new_event_participation, url: event_participations_path(@new_event_participation)) do |f| %>
 		<%= f.hidden_field :user_id, :value => current_user.id %>
 		<%= f.hidden_field :event_id, :value => @event.id %>
 	  	<div class="actions text-center">
-	  		<%= f.submit "参加する" ,class: "btn btn-info text-light" %>
+	  		<%= f.submit "参加する" ,class: "btn btn-outline-info" %>
 		</div>
 	<% end %>
 <% end %>
@@ -50,7 +51,7 @@
 			<% @admin_participations.each do |admin_participation| %>
 				<tr>
 					<td class="none_wrap"><%= admin_participation.user.term %></td>
-					<td><%= admin_participation.user.name %></td>
+					<td><%=link_to admin_participation.user.name, user_path(admin_participation.user),class: "user_name" %></td>
 				</tr>
 			<% end %>
 		</tbody>
@@ -73,7 +74,7 @@
 				<% @event.users.reverse_each do |user| %>
 				<tr>
 					<td class="none_wrap"><%= user.term %></td>
-					<td><%= user.name %></td>
+					<td><%= link_to user.name, user_path(user),class: "user_name" %></td>
 					<td><%= user.genre1_name %>／<%= user.genre2_name %></td>
 				</tr>
 				<% end %>
@@ -86,20 +87,22 @@
 
 <div class="text-center">
 	<!-- ショーケース作成ボタン -->
-	<% if (current_user.joined_event(@event)) %>
-		 <p><%= link_to "ショーケース作成", user_path(current_user),class: "btn btn-info text-light" %></p>
+	<% if false %>
+		<% if (current_user.joined_event(@event)) %>
+			 <p><%= link_to "ショーケース作成", user_path(current_user),class: "btn btn-outline-info" %></p>
+		<% end %>
 	<% end %>
 
 	<!-- 参加取り下げボタン -->
 	<% if current_user.joined_event(@event) %>
 	<p><%= link_to "参加取り下げ", event_participation_path(current_user.event(@event),event_id: @event.id ), method: :delete, data: { confirm: '参加を取りやめる前に管理者に連絡してください。
-		参加を取りやめますか？' } ,class: "btn btn-warning text-light" %></p>
+		参加を取りやめますか？' } ,class: "btn btn-outline-warning" %></p>
 	<% end %>
 
 	<!-- 編集、削除ボタン -->
 	<% if current_user.is_event_admin(@event) or current_user.is_admin %>
-		<%= link_to '編集', edit_event_path(@event.id), class: "btn btn-success text-light" %>
-		<%= link_to '削除', event_path(@event.id), method: :delete, data: { confirm: 'このイベントを削除してよろしいですか？' }, class: " btn btn-danger text-light" %>
+		<%= link_to '編集', edit_event_path(@event.id), class: "btn btn-outline-success" %>
+		<%= link_to '削除', event_path(@event.id), method: :delete, data: { confirm: 'このイベントを削除してよろしいですか？' }, class: " btn btn-outline-danger" %>
 		<p style="font-size: 8px; color: #808080; margin-top: 4px;">代表またはイベント管理者はイベントの編集、削除ができます</p>
 	<% end %>
 

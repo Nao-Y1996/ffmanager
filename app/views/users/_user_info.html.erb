@@ -63,21 +63,29 @@
 </table>
 
 <% if flash[:notice]%>
-	<div class="alert alert-success">
+	<div class="alert alert-info">
       <%= flash[:notice] %>
     </div>
 <% end %>
 <% if flash[:warning_notice]%>
-	<div class="alert alert-danger">
+	<div class="alert alert-warning">
       <%= flash[:warning_notice] %>
     </div>
 <% end %>
+<% if flash[:danger_notice]%>
+	<div class="alert alert-danger">
+      <%= flash[:danger_notice] %>
+    </div>
+<% end %>
 
-<%=link_to '', edit_user_path(user.id), class: "fas fa-edit btn btn-outline-secondary btn-block text-dark"%>
+<% if user == current_user %>
+	<%=link_to '', edit_user_path(user.id), class: "fas fa-edit btn btn-outline-secondary btn-block text-dark"%>
 
-<div class="mt-2 mb-2">
-<%=link_to 'イベント作成', new_event_path, class: "btn btn-outline-secondary btn-block text-dark"%>
-</div>
+	<div class="mt-2 mb-2">
+	<%=link_to 'イベント作成', new_event_path, class: "btn btn-outline-secondary btn-block text-dark"%>
+	</div>
+<% end %>
+
 <%if current_user.is_admin==true && user.is_admin==true%>
 	<%=  link_to '- 代表', user_change_is_admin_path(user_id: user.id), method: :patch, class: "btn btn-danger"%>
 <%end%>
