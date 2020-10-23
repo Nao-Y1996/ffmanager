@@ -24,7 +24,7 @@ class GenresController < ApplicationController
         @genre1_3rd_users.push(genre1_user_info.user)
       elsif genre1_user_info.user.term == get_1st_grade_term-1
         @genre1_2nd_users.push(genre1_user_info.user)
-      else
+      elsif genre1_user_info.user.term == get_1st_grade_term
         @genre1_1st_users.push(genre1_user_info.user)
       end
     end
@@ -34,7 +34,7 @@ class GenresController < ApplicationController
         @genre2_3rd_users.push(genre2_user_info.user)
       elsif genre2_user_info.user.term == get_1st_grade_term-1
         @genre2_2nd_users.push(genre2_user_info.user)
-      else
+      elsif genre2_user_info.user.term == get_1st_grade_term
         @genre2_1st_users.push(genre2_user_info.user)
       end
     end

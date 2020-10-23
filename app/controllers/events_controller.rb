@@ -17,14 +17,15 @@ def new
       @event = Event.new(event_params)
       if @event.save
         flash[:notice] = "イベントを作成しました"
-        event_participant = EventParticipation.new
-        event_participant.user_id = current_user.id
-        event_participant.event_id = @event.id
-        event_participant.is_event_admin = true
-        if event_participant.save
+        event_prticipation = EventParticipation.new
+        event_prticipation.user_id = current_user.id
+        event_prticipation.event_id = @event.id
+        event_prticipation.is_event_admin = true
+        if event_prticipation.save
           redirect_to event_path(@event)
         else
-          #ここの処理が実行されることはないはずだが、後でエラーメッセージの表示を実装しておくべき
+          #ここの処理が実行されることはないはずだが、、、
+          flash[:danger_notice] = 'イベント作成でエラーが発生しました。やり直してください。改善しない場合はアプリ開発者に連絡してください。'
           redirect_to user_path(current_user)
         end
       else
@@ -67,7 +68,7 @@ def new
   def correct_user#event管理者or代表のみ編集、削除可能
     event = Event.find(params[:id])
     if !(current_user.is_event_admin(event) or current_user.is_admin)
-      flash[:warning_notice] = "イベントの編集,削除権限がありません"
+      flash[:danger_notice] = "イベントの編集,削除権限がありません"
       redirect_to user_path(current_user)
     end
   end

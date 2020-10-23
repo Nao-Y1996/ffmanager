@@ -59,7 +59,7 @@
 		<!--部門長であることの確認処理-->
 		<% genre1 = current_user.user_genre_infos.where(priority: 1) %>
 		<% if current_user.is_genre_leader? && genre1[0]!=nil && @genre.id == genre1[0].genre_id %>
-			<%=button_to '承認', user_genre_info_path(info_id: request_user_info.id, genre_id: @genre.id),method: :patch, class: "btn btn-primary" %>
+			<%=button_to '承認', user_genre_info_path(info_id: request_user_info.id, genre_id: @genre.id),method: :patch, class: "btn btn-primary btn-sm" %>
 		<%end%>
 	<%end%>
 <%end%>
