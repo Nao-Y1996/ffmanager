@@ -55,7 +55,7 @@
 		<tr>
 			<td>その他</td>
 			<td>
-				<%if user.is_admin %> 代表 <%end%>
+				<%if user.is_admin %> <%= "代表　" %><%end%>
 				<%if user.is_genre_leader? %> 部門長 <%end%>
 			</td>
 		</tr>
@@ -86,17 +86,26 @@
 	</div>
 <% end %>
 
-<%if current_user.is_admin==true && user.is_admin==true%>
-	<%=  link_to '- 代表', user_change_is_admin_path(user_id: user.id), method: :patch, class: "btn btn-danger"%>
-<%end%>
-<%if current_user.is_admin==true && user.is_admin==false%>
-	<%=  link_to '+ 代表', user_change_is_admin_path(user_id: user.id), method: :patch, class: "btn btn-success" %>
-<%end%>
-<%if current_user.is_admin==true && user.is_genre_leader? == true%>
-	<%=  link_to '- 部門長', {controller: "user_genre_infos",
-								   action: "destroy_genre_leader", user_id: user.id}, method: :patch, class: "btn btn-danger" %>
-<%end%>
-<%if current_user.is_admin==true && user.is_genre_leader? == false%>
-	<%=  link_to '+ 部門長', {controller: "user_genre_infos",
-								   action: "add_genre_leader", user_id: user.id}, method: :patch, class: "btn btn-success" %>
-<%end%></br>
+
+
+<%if current_user.is_admin==true %>
+	<div class="mb-4 mt-3">
+		<details>
+		  <summary>代表権限の機能</summary>
+			<%if current_user.is_admin==true && user.is_admin==true%>
+				<%=  link_to 'このユーザーの代表権限を削除', user_change_is_admin_path(user_id: user.id), method: :patch, class: "mt-2 btn btn-sm btn-outline-danger"%></br>
+			<%end%>
+			<%if current_user.is_admin==true && user.is_admin==false%>
+				<%=  link_to 'このユーザーに代表権限を付与', user_change_is_admin_path(user_id: user.id), method: :patch, class: "mt-2 btn btn-sm btn-outline-success" %></br>
+			<%end%>
+			<%if current_user.is_admin==true && user.is_genre_leader? == true%>
+				<%=  link_to 'このユーザーの部門長権限を削除', {controller: "user_genre_infos",
+											   action: "destroy_genre_leader", user_id: user.id}, method: :patch, class: "mt-2 btn btn-sm btn-outline-danger" %></br>
+			<%end%>
+			<%if current_user.is_admin==true && user.is_genre_leader? == false%>
+				<%=  link_to 'このユーザーに部門長権限を付与', {controller: "user_genre_infos",
+											   action: "add_genre_leader", user_id: user.id}, method: :patch, class: "mt-2 btn btn-sm btn-outline-success" %></br>
+			<%end%></br>
+		</details>
+	</div>
+<% end %>
