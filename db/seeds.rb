@@ -48,12 +48,16 @@ end
 for i in 1..all_users.length do
   genre1 = rand(1..9)
   genre2 = rand_except_num(genre1)
-  UserGenreInfo.create!(genre_id: genre1, user_id: i, priority: 1, is_valid: true, is_genre_leader: false)
-  UserGenreInfo.create!(genre_id: genre2, user_id: i, priority: 2, is_valid: true, is_genre_leader: false)
+  if genre1 != genre2
+    UserGenreInfo.create!(genre_id: genre1, user_id: i, priority: 1, is_valid: true, is_genre_leader: false)
+    UserGenreInfo.create!(genre_id: genre2, user_id: i, priority: 2, is_valid: true, is_genre_leader: false)
+  else
+    print "バグ"
+  end
 end
 # 部門長権限の付与
 for i in 1..9 do
-  info = UserGenreInfo.find_by(genre_id: i)
+  info = UserGenreInfo.find_by(genre_id: i, priority: 1)
   info.is_genre_leader = true
   info.save
 end
@@ -136,4 +140,3 @@ User.create!(name: '山田太郎', name_kana: 'ヤマダタロウ', email: 'taro
 User.create!(name: '山田花子', name_kana: 'ヤマダハナコ', email: 'hanako@yamada.com',
                term: 19, student_number: 999999, is_active: true,
                is_admin: false,  password: "password", password_confirmation: "password")
-

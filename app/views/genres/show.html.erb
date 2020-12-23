@@ -68,7 +68,7 @@
 					<tr>
 						<td class="none_wrap"><%= genre2_3rd_user.term %></td>
 						<td><%=link_to genre2_3rd_user.name, user_path(genre2_3rd_user.id),class: "user_name" %></td>
-						<td><%= genre2_3rd_user.genre2_name %></td>
+						<td><%= genre2_3rd_user.genre1_name %></td>
 						<td>
 							<% if genre2_3rd_user.is_admin %>代表<%end%>
 							<% if genre2_3rd_user.is_genre_leader? %>部門長<%end%>
@@ -79,7 +79,7 @@
 					<tr>
 						<td class="none_wrap"><%= genre2_2nd_user.term %></td>
 						<td><%=link_to genre2_2nd_user.name, user_path(genre2_2nd_user.id),class: "user_name" %></td>
-						<td><%= genre2_2nd_user.genre2_name %></td>
+						<td><%= genre2_2nd_user.genre1_name %></td>
 						<td>
 							<% if genre2_2nd_user.is_admin %>代表<%end%>
 							<% if genre2_2nd_user.is_genre_leader? %>部門長<%end%>
@@ -90,7 +90,7 @@
 					<tr>
 						<td class="none_wrap"><%= genre2_1st_user.term %></td>
 						<td><%=link_to genre2_1st_user.name, user_path(genre2_1st_user.id),class: "user_name" %></td>
-						<td><%= genre2_1st_user.genre2_name %></td>
+						<td><%= genre2_1st_user.genre1_name %></td>
 						<td>
 							<% if genre2_1st_user.is_admin %>代表<%end%>
 							<% if genre2_1st_user.is_genre_leader? %>部門長<%end%>
