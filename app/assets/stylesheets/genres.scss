@@ -30,16 +30,23 @@
 .genre-box:hover{
 	background-color: #888888;
 }
-
-.member-container{
-	display:flex;
-	flex-wrap:wrap;
-	margin:0 auto;
-	text-decoration: none;
-	justify-content: space-around;
+.show_genre_name{
+	font-size:40px;
 }
-
+.genre_member_num{
+	font-size:20px;
+	display:inline
+}
+.member-container{
+	margin:0 auto;
+}
 .member-box{
+	margin: 30px 40px;
+	color: #000000;
+	font-size:20px;
+	text-decoration:none !important;
+}
+member-box{
 	margin: 30px 40px;
 	color: #000000;
 	font-size:20px;
@@ -86,6 +93,5 @@
 	margin: 10px 10px;
 	color: #000000;
 	font-size:15px;
-	text-decoration:none !important;
   }
 }

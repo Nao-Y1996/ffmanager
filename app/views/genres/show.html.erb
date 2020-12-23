@@ -1,68 +1,139 @@
-<h1><%= @genre.name %></h1>
+
 <div class="member-container">
-	<div class=member-box>
-		<h2>1ジャン</h2>
-		<%if @genre1_users_info!=nil %>
-			<% @genre1_3rd_users.each do |genre1_3rd_user| %>
-			<p>
-				<%= genre1_3rd_user.term %>th
-				<%=link_to genre1_3rd_user.name, user_path(genre1_3rd_user.id),class: "user_name" %></br>
-			</p>
-			<%end%>
-			<% @genre1_2nd_users.each do |genre1_2nd_user| %>
-			<p>
-				<%= genre1_2nd_user.term %>th
-				<%=link_to genre1_2nd_user.name, user_path(genre1_2nd_user.id),class: "user_name" %></br>
-			</p>
-			<%end%>
-			<% @genre1_1st_users.each do |genre1_1st_user| %>
-			<p>
-				<%= genre1_1st_user.term %>th
-				<%=link_to genre1_1st_user.name, user_path(genre1_1st_user.id),class: "user_name" %></br>
-			</p>
-			<%end%>
-		<%end%>
+	<div class="show_genre_name">
+		<%= @genre.name %>
+		<p class="genre_member_num"> ：<%= @genre1_users_info.count + @genre2_users_info.count %>名 </p>
 	</div>
-
 	<div class=member-box>
-		<h2>2ジャン</h2>
-		<%if @genre2_users_info!=nil %>
-			<% @genre2_3rd_users.each do |genre2_3rd_user| %>
-			<p>
-				<%= genre2_3rd_user.term %>th
-				<%=link_to genre2_3rd_user.name, user_path(genre2_3rd_user.id),class: "user_name" %></br>
-			</p>
-			<%end%>
-			<% @genre2_2nd_users.each do |genre2_2nd_user| %>
-			<p>
-				<%= genre2_2nd_user.term %>th
-				<%=link_to genre2_2nd_user.name, user_path(genre2_2nd_user.id),class: "user_name" %></br>
-			</p>
-			<%end%>
-			<% @genre2_1st_users.each do |genre2_1st_user| %>
-			<p>
-				<%= genre2_1st_user.term %>th
-				<%=link_to genre2_1st_user.name, user_path(genre2_1st_user.id),class: "user_name" %></br>
-			</p>
-			<%end%>
-		<%end%>
+		<h3>1ジャン</h3>
+		<table class="table-sm table-striped">
+			<thead>
+				<tr>
+					<th>代</th>
+					<th>名前</th>
+					<th>2ジャン</th>
+					<th>その他</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @genre1_3rd_users.each do |genre1_3rd_user| %>
+					<tr>
+						<td class="none_wrap"><%= genre1_3rd_user.term %></td>
+						<td><%=link_to genre1_3rd_user.name, user_path(genre1_3rd_user.id),class: "user_name" %></td>
+						<td><%= genre1_3rd_user.genre2_name %></td>
+						<td>
+							<% if genre1_3rd_user.is_admin %>代表<%end%>
+							<% if genre1_3rd_user.is_genre_leader? %>部門長<%end%>
+						</td>
+					</tr>
+				<%end%>
+				<% @genre1_2nd_users.each do |genre1_2nd_user| %>
+					<tr>
+						<td class="none_wrap"><%= genre1_2nd_user.term %></td>
+						<td><%=link_to genre1_2nd_user.name, user_path(genre1_2nd_user.id),class: "user_name" %></td>
+						<td><%= genre1_2nd_user.genre2_name %></td>
+						<td>
+							<% if genre1_2nd_user.is_admin %>代表<%end%>
+							<% if genre1_2nd_user.is_genre_leader? %>部門長<%end%>
+						</td>
+					</tr>
+				<%end%>
+				<% @genre1_1st_users.each do |genre1_1st_user| %>
+					<tr>
+						<td class="none_wrap"><%= genre1_1st_user.term %></td>
+						<td><%=link_to genre1_1st_user.name, user_path(genre1_1st_user.id),class: "user_name" %></td>
+						<td><%= genre1_1st_user.genre2_name %></td>
+						<td>
+							<% if genre1_1st_user.is_admin %>代表<%end%>
+							<% if genre1_1st_user.is_genre_leader? %>部門長<%end%>
+						</td>
+					</tr>
+				<%end%>
+			</tbody>
+		</table>
 	</div>
-
+	<div class=member-box>
+		<h3>2ジャン</h3>
+		<table class="table-sm table-striped">
+			<thead>
+				<tr>
+					<th>代</th>
+					<th>名前</th>
+					<th>1ジャン</th>
+					<th>その他</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @genre2_3rd_users.each do |genre2_3rd_user| %>
+					<tr>
+						<td class="none_wrap"><%= genre2_3rd_user.term %></td>
+						<td><%=link_to genre2_3rd_user.name, user_path(genre2_3rd_user.id),class: "user_name" %></td>
+						<td><%= genre2_3rd_user.genre2_name %></td>
+						<td>
+							<% if genre2_3rd_user.is_admin %>代表<%end%>
+							<% if genre2_3rd_user.is_genre_leader? %>部門長<%end%>
+						</td>
+					</tr>
+				<%end%>
+				<% @genre2_2nd_users.each do |genre2_2nd_user| %>
+					<tr>
+						<td class="none_wrap"><%= genre2_2nd_user.term %></td>
+						<td><%=link_to genre2_2nd_user.name, user_path(genre2_2nd_user.id),class: "user_name" %></td>
+						<td><%= genre2_2nd_user.genre2_name %></td>
+						<td>
+							<% if genre2_2nd_user.is_admin %>代表<%end%>
+							<% if genre2_2nd_user.is_genre_leader? %>部門長<%end%>
+						</td>
+					</tr>
+				<%end%>
+				<% @genre2_1st_users.each do |genre2_1st_user| %>
+					<tr>
+						<td class="none_wrap"><%= genre2_1st_user.term %></td>
+						<td><%=link_to genre2_1st_user.name, user_path(genre2_1st_user.id),class: "user_name" %></td>
+						<td><%= genre2_1st_user.genre2_name %></td>
+						<td>
+							<% if genre2_1st_user.is_admin %>代表<%end%>
+							<% if genre2_1st_user.is_genre_leader? %>部門長<%end%>
+						</td>
+					</tr>
+				<%end%>
+			</tbody>
+		</table>
+	</div>
+	<%if @request_users_info %>
+		<div class=member-box>
+			<h3>申請中</h3>
+			<table class="table-sm table-striped">
+				<thead>
+					<tr>
+						<th>代</th>
+						<th>名前</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @request_users_info.each do |request_user_info| %>
+						<tr>
+							<td class="none_wrap"><%= request_user_info.user.term %></td>
+							<td><%=link_to request_user_info.user.name, user_path(request_user_info.user.id),class: "user_name" %></td>
+							<td>
+								<!--部門長であることの確認処理-->
+								<% genre1 = current_user.user_genre_infos.where(priority: 1) %>
+								<% if current_user.is_genre_leader? && genre1[0]!=nil && @genre.id == genre1[0].genre_id %>
+									<%=button_to '承認', user_genre_info_path(info_id: request_user_info.id, genre_id: @genre.id),method: :patch, class: "btn btn-primary btn-sm" %>
+								<%end%>
+							</td>
+						</tr>
+					<%end%>
+				</tbody>
+			</table>
+		</div>
+	<%end%>
 </div>
 
 
 
-<%if @request_users_info!=nil %>
-	<h2>申請中</h2>
-	<% @request_users_info.each do |request_user_info| %>
-		<%= request_user_info.user.name %>
-		<!--部門長であることの確認処理-->
-		<% genre1 = current_user.user_genre_infos.where(priority: 1) %>
-		<% if current_user.is_genre_leader? && genre1[0]!=nil && @genre.id == genre1[0].genre_id %>
-			<%=button_to '承認', user_genre_info_path(info_id: request_user_info.id, genre_id: @genre.id),method: :patch, class: "btn btn-primary btn-sm" %>
-		<%end%>
-	<%end%>
-<%end%>
+
 
 
 <% if current_user.belongs_to_genre?(@genre) %>
