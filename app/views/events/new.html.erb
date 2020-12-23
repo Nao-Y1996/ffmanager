@@ -24,19 +24,19 @@
           <div class="field mt-2">
             <%= f.label :url1,'リンク1', class: "url_description"%>
             <br><span class="URL-comment"> 参加者に表示したいリンクがあればここに入れます（Googleフォームなど）</span><br>
-            <%= f.url_field :url1, autofocus: true, autocomplete: "url1"%>
+            <%= f.url_field :url1, autofocus: true, autocomplete: "url1"%><br>
             <%= f.label :url1_description,'リンク1の表示' , class: "url_description"%><br>
             <%= f.text_field :url1_description, autofocus: true, autocomplete: "description", id: "url_description_field" %><br>
           </div>
           <div class="field mt-2">
             <%= f.label :url2,'リンク2', class: "url_description"%><br>
-            <%= f.url_field :url2, autofocus: true, autocomplete: "url2"%>
+            <%= f.url_field :url2, autofocus: true, autocomplete: "url2"%><br>
             <%= f.label :url2_description,'リンク2の表示' , class: "url_description"%><br>
             <%= f.text_field :url2_description, autofocus: true, autocomplete: "description", id: "url_description_field" %><br>
           </div>
           <div class="field mt-2">
             <%= f.label :url3,'リンク3', class: "url url_description"%><br>
-            <%= f.url_field :url3, autofocus: true, autocomplete: "url3" %>
+            <%= f.url_field :url3, autofocus: true, autocomplete: "url3" %><br>
             <%= f.label :url3_description,'リンク3の表示' , class: "url_description"%><br>
             <%= f.text_field :url3_description, autofocus: true, autocomplete: "description", id: "url_description_field" %><br>
           </div>
