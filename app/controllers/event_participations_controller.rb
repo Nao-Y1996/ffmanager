@@ -42,8 +42,8 @@ before_action :exist_event_admin, only: [:update,:destroy]
   def exist_event_admin#イベント管理者は最低一人以上存在するようにする
     @event_participation = EventParticipation.find(params[:id])
     begin#updateの時の処理
-      #現在の管理者が一人の時　権限を変更できない
-      if EventParticipation.where(is_event_admin: true, event_id: params[:event_participation][:event_id]).count==1
+      #現在の管理者が一人　かつ　管理者権限をを削除しようとする　時　権限を変更できない
+      if EventParticipation.where(is_event_admin: true, event_id: params[:event_participation][:event_id]).count==1 && event_participation_params[:is_event_admin]=="false"
         flash[:event_participation_error] = "管理者は1人以上必要です"
         redirect_to edit_event_path(@event_participation.event)
       end
