@@ -1,4 +1,19 @@
 <h3>イベント一覧</h3>
+<% if flash[:notice]%>
+	<div class="alert alert-info">
+      <%= flash[:notice] %>
+    </div>
+<% end %>
+<% if flash[:warning_notice]%>
+	<div class="alert alert-warning">
+      <%= flash[:warning_notice] %>
+    </div>
+<% end %>
+<% if flash[:danger_notice]%>
+	<div class="alert alert-danger">
+      <%= flash[:danger_notice] %>
+    </div>
+<% end %>
 <div class="container">
 	<div class='row'>
 
