@@ -10,18 +10,25 @@
         width: 700px;
         height: 30px;
     }
-
+.event_form input[type="url"] {
+    width: 700px;
+    height: 30px;
+}
 .event_form textarea[id="event_description"] {
         width: 700px;
         height: 200px;
     }
 
-.event_label {
-    margin-bottom: 0.5rem;
-}
 .field{
 	margin-bottom: 1rem;
 }
+.url_description{
+  margin:0;
+}
+#url_description_field{
+  width: 250px;
+}
+
 
 .event_name {
   padding: 0.4em 0.0em;/*文字の上下 左右の余白*/
@@ -78,6 +85,10 @@ details > p {
         width: 500px;
         height: 30px;
     }
+.event_form input[type="url"] {
+    width: 500px;
+    height: 30px;
+}
 .event_form textarea[id="event_description"] {
         width: 500px;
         height: 200px;
@@ -89,6 +100,10 @@ details > p {
         width: 350px;
         height: 30px;
     }
+.event_form input[type="url"] {
+    width: 350px;
+    height: 30px;
+}
 .event_form textarea[id="event_description"] {
         width: 350px;
         height: 200px;
@@ -101,7 +116,10 @@ details > p {
         width: 300px;
         height: 30px;
     }
-
+.event_form input[type="url"] {
+    width: 350px;
+    height: 30px;
+}
 .event_form textarea[id="event_description"] {
         width: 300px;
         height: 200px;

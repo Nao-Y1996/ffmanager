@@ -1,26 +1,45 @@
 <div class="event_form">
-
 	<%= form_for(@event, url: events_path(@event), method: :post ) do |f| %>
-
 		<div class="field  text-center">
-          <%= f.label :name,'イベント名', class: "event_label" %><br />
-          <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
-        </div>
+        <%= f.label :name,'イベント名' %><br />
+        <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+      </div>
 
-        <div class="field  text-center">
-          <%= f.label :description,'概要または連絡事項', class: "event_label" %><br />
-          <%= f.text_area :description, autofocus: true, autocomplete: "description" %>
-        </div>
+      <div class="field  text-center">
+        <%= f.label :description,'概要または連絡事項' %><br />
+        <%= f.text_area :description, autofocus: true, autocomplete: "description" %>
+      </div>
 
-        <div class="field text-center">
-          <%= f.label :start_at,'イベント開始日', class: "event_label" %><br />
-         <%= f.date_select :start_at, {}%>
-        </div>
+      <div class="field text-center">
+        <%= f.label :start_at,'イベント開始日' %><br />
+       <%= f.date_select :start_at, {}%>
+      </div>
 
-        <div class="field text-center">
-          <%= f.label :end_at,'イベント終了日', class: "event_label" %><br />
-         <%= f.date_select :end_at, {}%>
-        </div>
+      <div class="field text-center">
+        <%= f.label :end_at,'イベント終了日' %><br />
+       <%= f.date_select :end_at, {}%>
+      </div>
+
+      <div class="mt-3">
+          <div class="field mt-2">
+            <%= f.label :url1_description,'URL1の表示' , class: "url_description"%><br>
+            <%= f.text_field :url1_description, autofocus: true, autocomplete: "description", id: "url_description_field" %><br>
+            <%= f.label :url1,'URL1', class: "url_description"%><br>
+            <%= f.url_field :url1, autofocus: true, autocomplete: "url1"%>
+          </div>
+          <div class="field mt-2">
+            <%= f.label :url2_description,'URL2の表示' , class: "url_description"%><br>
+            <%= f.text_field :url2_description, autofocus: true, autocomplete: "description", id: "url_description_field" %><br>
+            <%= f.label :url2,'URL2', class: "url_description"%><br>
+            <%= f.url_field :url2, autofocus: true, autocomplete: "url2"%>
+          </div>
+          <div class="field mt-2">
+            <%= f.label :url3_description,'URL3の表示' , class: "url_description"%><br>
+            <%= f.text_field :url3_description, autofocus: true, autocomplete: "description", id: "url_description_field" %><br>
+            <%= f.label :url3,'URL3', class: "url url_description"%><br>
+            <%= f.url_field :url3, autofocus: true, autocomplete: "url3" %>
+          </div>
+      </div>
 
 		  <div class="actions text-center">
 	      <%= f.submit "作成する" ,class: "btn btn-outline-info "%>

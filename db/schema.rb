@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_16_082234) do
+ActiveRecord::Schema.define(version: 2020_12_23_082414) do
 
   create_table "event_participations", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -27,6 +27,12 @@ ActiveRecord::Schema.define(version: 2020_10_16_082234) do
     t.date "start_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "url1"
+    t.text "url2"
+    t.text "url3"
+    t.string "url1_description"
+    t.string "url2_description"
+    t.string "url3_description"
   end
 
   create_table "genres", force: :cascade do |t|
