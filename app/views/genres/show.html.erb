@@ -4,6 +4,21 @@
 		<%= @genre.name %>
 		<p class="genre_member_num"> ：<%= @genre1_users_info.count + @genre2_users_info.count %>名 </p>
 	</div>
+	<% if flash[:notice]%>
+		<div class="alert alert-info">
+	      <%= flash[:notice] %>
+	    </div>
+	<% end %>
+	<% if flash[:warning_notice]%>
+		<div class="alert alert-warning">
+	      <%= flash[:warning_notice] %>
+	    </div>
+	<% end %>
+	<% if flash[:danger_notice]%>
+		<div class="alert alert-danger">
+	      <%= flash[:danger_notice] %>
+	    </div>
+	<% end %>
 	<div class=member-box>
 		<h3>1ジャン</h3>
 		<table class="table-sm table-striped">
