@@ -19,6 +19,8 @@ class GenresController < ApplicationController
     @genre2_2nd_users = []
     @genre2_3rd_users = []
 
+    # genre1_user = @genre1_users_info.users.order('term') を試す
+
     @genre1_users_info.each do |genre1_user_info|
       if genre1_user_info.user.term == get_1st_grade_term-2
         @genre1_3rd_users.push(genre1_user_info.user)
