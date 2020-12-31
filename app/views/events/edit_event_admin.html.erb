@@ -1,0 +1,35 @@
+<div class="event_participants">
+管理者の編集
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>代</th>
+          <th>名前</th>
+          <th>管理者権限</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @event.event_participations.reverse_each do |event_participation| %>
+        <tr>
+          <td><%= event_participation.user.term %></td>
+          <td><%= event_participation.user.name %></td>
+          <td>
+            <%if event_participation.is_event_admin %>
+                <%= form_for(event_participation) do |f| %>
+                  <%= f.hidden_field :event_id, :value => @event.id %>
+                  <%= f.hidden_field :is_event_admin, :value => false %>
+                  <%= f.submit "-" ,class: "btn btn-outline-warning btn-sm event_admin_assignment" %>
+                <% end %>
+            <% else %>
+                <%= form_for(event_participation) do |f| %>
+                  <%= f.hidden_field :event_id, :value => @event.id %>
+                  <%= f.hidden_field :is_event_admin, :value => true %>
+                  <%= f.submit "+" ,class: "btn btn-outline-success btn-sm event_admin_assignment" %>
+                <% end %>
+            <%end%>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div>

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :user_genre_infos, only: [:create, :update, :destroy]
 
   resources :events
+  get 'event/:id/edit_admins', to: 'events#edit_event_admin', as: :edit_evemt_admins
   resources :event_participations, only: [:create,:update, :destroy]
 
 

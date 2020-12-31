@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!
-  before_action :correct_user, only: [:destroy, :update]
+  before_action :correct_user, only: [:edit, :destroy, :update]
 
   def index
     @active_event = Event.where('end_at >= ?', Date.today).order(:start_at)
@@ -41,6 +41,11 @@ class EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
+    @admin_participations = @event.event_participations.where(is_event_admin: true)
+  end
+
+  def edit_event_admin
+    @event = @event = Event.find(params[:id])
   end
 
   def update
@@ -69,8 +74,8 @@ class EventsController < ApplicationController
   def correct_user#event管理者or代表のみ編集、削除可能
     event = Event.find(params[:id])
     if !(current_user.is_event_admin(event) or current_user.is_admin)
-      flash[:danger_notice] = "イベントの編集,削除権限がありません"
-      redirect_to user_path(current_user)
+      # flash[:danger_notice] = "イベントの編集,削除権限がありません"
+      redirect_to event_path(event)
     end
   end
 end
