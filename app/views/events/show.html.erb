@@ -54,7 +54,11 @@
 
 
 <!-- 管理者一覧 -->
-<div class="mt-3">イベント管理者</div>
+<div class="mt-3">イベント管理者
+<% if current_user.is_event_admin(@event) %>
+	<%= link_to '編集', edit_evemt_admins_path(@event), class: 'ml-2'%>
+<% end %>
+</div>
 	<table class="table table-bordered table-sm" >
 		<thead>
 			<tr>

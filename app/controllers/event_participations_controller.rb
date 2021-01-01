@@ -16,8 +16,8 @@ before_action :exist_event_admin, only: [:update,:destroy]
   def update#管理者の変更
     @event_participation = EventParticipation.find(params[:id])
     if @event_participation.update(event_participation_params)
-      #flash[:notice] = "管理者を更新しました"
-      redirect_to edit_event_path(@event_participation.event)
+      flash[:notice] = "管理者を更新しました"
+      redirect_to event_path(@event_participation.event)
     else
       flash[:event_participation_error] = "予期しないエラーが発生しました。もう一度お試しください。
       動作に不具合がある場合は、開発者に連絡してください。"

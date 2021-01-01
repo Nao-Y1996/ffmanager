@@ -41,7 +41,6 @@ class EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
-    @admin_participations = @event.event_participations.where(is_event_admin: true)
   end
 
   def edit_event_admin
